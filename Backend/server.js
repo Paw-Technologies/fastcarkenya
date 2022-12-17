@@ -17,6 +17,7 @@ const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
+mongoose.set('strictQuery', true);
 mongoose
   // .connect(process.env.DATABASE_LOCAL, {
   .connect(DB, {
@@ -26,7 +27,6 @@ mongoose
     // useFindAndModify: false
   })
   .then(() => console.log("DB connections successful!"));
-
 // Express server connection
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
