@@ -71,9 +71,9 @@ exports.getOne = (Model, popOptions) => catchAsync(async(req, res, next) => {
 exports.getAll = Model => catchAsync(async(req, res, next) => {
 
     // EXECUTE QUERY
-    // To allow for nexted get reviews on tour (hack)
+    
     let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
+    if (req.params.productId) filter = { product: req.params.productId };
 
     const features = new APIFeatures(Model.find(filter), req.query)
         .filter()
