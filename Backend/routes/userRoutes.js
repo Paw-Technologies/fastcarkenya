@@ -1,9 +1,11 @@
 const express = require('express');
 const userController = require('./../controllers/userController')
 const authController = require('./../controllers/authController')
-
+const productRouter =require('./productRoutes')
 
 const router = express.Router();
+
+
 
 router.post('/signup', authController.signup)
 router.post('/login', authController.login)
@@ -22,6 +24,7 @@ router.get('/me', userController.getMe, userController.getUser)
 router.patch('/updateMe', userController.uploadUserPhoto, userController.resizeUserPhoto, userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 
+router.use('/:userId/products', productRouter)
 
 router.use(authController.restrictTo('admin'));
 

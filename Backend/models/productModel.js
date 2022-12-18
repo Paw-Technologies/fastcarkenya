@@ -53,8 +53,16 @@ const productSchema = new mongoose.Schema({
     toObject: { virtuals: true },
 });
 
-// virtual populate
-// productSchema.
+
+// Query middleware
+productSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'createdBy',
+        select: 'name photo'
+    })
+
+    next()
+})
 
 
 const Product = mongoose.model('Product', productSchema);

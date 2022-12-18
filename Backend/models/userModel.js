@@ -50,8 +50,22 @@ const userSchema = new mongoose.Schema({
         default: true,
         select: false
     }
-});
+}, {
+    toJSON: { virtuals: true },
+    toObject:{virtuals:true},
+}
+);
 
+// Virtual populate
+userSchema.virtual('myProducts', {
+    ref: 'Product',
+    foreignField: 'createdBy',
+    localField:'_id'
+})
+
+
+
+// DOCUMENT MIDDLEWARE: RUNS BEFORE .save and .create()
 userSchema.pre('save', async function(next) {
     // Only run this function if pasword was actually modified
     if (!this.isModified('password')) return next();

@@ -71,9 +71,9 @@ exports.getOne = (Model, popOptions) => catchAsync(async(req, res, next) => {
 exports.getAll = Model => catchAsync(async(req, res, next) => {
 
     // EXECUTE QUERY
-    
+    // To allow for nested GET products on users
     let filter = {};
-    if (req.params.productId) filter = { product: req.params.productId };
+    if (req.params.userId) filter = { user: req.params.userId };
 
     const features = new APIFeatures(Model.find(filter), req.query)
         .filter()

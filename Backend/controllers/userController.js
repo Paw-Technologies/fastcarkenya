@@ -129,7 +129,7 @@ exports.createUser = (req, res) => {
 }
 
 
-exports.getUser = factory.getOne(User)
+exports.getUser = factory.getOne(User,{path:'myProducts'})
 
 exports.getAllUsers = factory.getAll(User);
 
