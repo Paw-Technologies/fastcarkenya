@@ -9,15 +9,12 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'A product must have a price']
     },
-    serialNumber: {
-        type: Number,
-    },
     model: {
         type: String,
         required: [true, 'A product must have a model']
     },
     partNumber: {
-        type: Number,
+        type: String,
         
     },
     year: {
@@ -43,6 +40,30 @@ const productSchema = new mongoose.Schema({
         default: false
 
     },
+    yearOfManufacture: {
+        type: Number
+    },
+    mileage: {
+        type: String
+    },
+    engineSize: {
+        type: String,
+    },
+    size: {
+        type: String,
+    },
+    ET: {
+        type: String,
+    },
+    cb:  {
+        type: String,
+    },
+    pcd:  {
+        type: String,
+    },
+    location: [String],
+    name: [String],
+    contacts:[String],
     createdBy: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
