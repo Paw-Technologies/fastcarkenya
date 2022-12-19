@@ -9,7 +9,8 @@ const router = express.Router({mergeParams:true});
 router
   .route("/")
   .get(productController.getAllProducts)
-  .post(productController.setUserIds,productController.createProduct);
+  .post(/*productController.setUserIds,*/productController.uploadProductImages,
+    productController.resizeProductImages,productController.createProduct);
 
 router
   .route("/:id")
