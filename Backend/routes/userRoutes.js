@@ -17,7 +17,7 @@ router.patch('/resetPassword/:token', authController.resetPassword)
 // Since middlewares work sequentially, another option is use (router.use(authController.protect))
 
 // Protect all routes after this middleware
-router.use(authController.protect);
+// router.use(authController.protect);
 
 router.patch('/updateMyPassword', authController.updatePassword)
 router.get('/me', userController.getMe, userController.getUser)
