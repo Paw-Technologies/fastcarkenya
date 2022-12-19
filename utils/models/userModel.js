@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'User must have a name'],
     },
+    phoneNumber: {
+        type:Number
+    },
     email: {
         type: String,
         required: [true, 'User must have an email'],
@@ -63,6 +66,16 @@ userSchema.virtual('myProducts', {
     localField:'_id'
 })
 
+userSchema.pre('save', async function (next) {
+    // thsi functions formats number
+    const number = Number(this.phoneNumber);
+    const newNumber = Number('+254' + number);
+    this.phoneNumber =newNumber;
+
+    next();
+    
+    
+})
 
 
 // DOCUMENT MIDDLEWARE: RUNS BEFORE .save and .create()

@@ -26,7 +26,7 @@ router.delete('/deleteMe', userController.deleteMe);
 
 router.use('/:userId/products', productRouter)
 
-router.use(authController.restrictTo('admin'));
+// router.use(authController.restrictTo('admin'));
 
 router
     .route('/')
