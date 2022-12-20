@@ -3,15 +3,15 @@ const User = require('../models/userModel');
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, 'A product must have a title'],
+        required: [false, 'A product must have a title'],
     },
     price: {
         type: Number,
-        required: [true, 'A product must have a price']
+        required: [false, 'A product must have a price']
     },
     model: {
         type: String,
-        required: [true, 'A product must have a model']
+        required: [false, 'A product must have a model']
     },
     partNumber: {
         type: String,
@@ -27,12 +27,12 @@ const productSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true,
-        required: [true, 'A product must have a description']
+        required: [false, 'A product must have a description']
 
     },
     imageCover: {
         type: String,
-        required: [true, 'A product must have a cover image']
+        required: [false, 'A product must have a cover image']
     },
     images: [String],
     isUsed: {

@@ -69,7 +69,6 @@ exports.getOne = (Model, popOptions) => catchAsync(async(req, res, next) => {
 
 
 exports.getAll = Model => catchAsync(async(req, res, next) => {
-
     // EXECUTE QUERY
     // To allow for nested GET products on users
     let filter = {};

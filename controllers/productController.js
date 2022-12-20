@@ -22,7 +22,6 @@ const upload = multer({
 
 exports.uploadProductImages = upload.fields(
     [
-
         {
             name: 'imageCover',
             maxCount: 1
