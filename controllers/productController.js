@@ -25,7 +25,7 @@ exports.uploadProductImages = upload.fields(
         {
             name: 'imageCover',
             maxCount: 1
-        },
+        }, 
         {
             name: 'images',
             maxCount: 3
@@ -33,8 +33,7 @@ exports.uploadProductImages = upload.fields(
     ]
 );
 exports.resizeProductImages = catchAsync(async (req, res, next) => {
-    // console.log(req.files);
-
+    console.log("here are .." , req.files.images);
     if (!req.files.imageCover || !req.files.images) return next()
 
     // 1) Cover Image
@@ -43,7 +42,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
         .resize(2000, 1333)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`public/img/products/${req.body.imageCover}`);
+        .toFile(`Backend/public/img/products/${req.body.imageCover}`);
 
     // 2) Images
     req.body.images = [];
@@ -56,7 +55,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
                 .resize(2000, 1333)
                 .toFormat('jpeg')
                 .jpeg({ quality: 90 })
-                .toFile(`public/img/products/${filename}`);
+                .toFile(`Backend/public/img/products/${filename}`);
 
             req.body.images.push(filename)
         }));

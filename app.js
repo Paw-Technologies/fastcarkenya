@@ -17,23 +17,11 @@ app.use(cors({
 }))
 
 
-
-
-
-
-
-
 // Development Logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 
 }
-
-
-
-
-
-
 
 // Body parser,reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
@@ -50,7 +38,7 @@ app.use((req, res, next) => {
 })
 
 
-
+app.use(express.static('./public/img/users/'))
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);

@@ -77,7 +77,11 @@ const filterObj = (obj, ...allowedFields) => {
 // });
 
 exports.getMe = (req, res, next) => {
-    req.params.id = req.user.id;
+    try {
+       req.params.id = req.user.id; 
+    } catch (error) {
+        console.log(error)
+    }
  
     next();
 }

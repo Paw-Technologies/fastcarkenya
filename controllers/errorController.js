@@ -65,7 +65,7 @@ const sendErrorProd = (err, req, res) => {
         // 2) Send generic message
         return res.status(500).json({
             status: 'error',
-            message: 'Something went very wrong!'
+            message: err//'Something went very wrong!'
         });
 
     }
@@ -75,6 +75,7 @@ const sendErrorProd = (err, req, res) => {
 
     if (err.isOperational) {
         console.log(err);
+        console.log('thisss')
         return res.status(err.statusCode).render('error', {
             title: 'Something went wrong',
             msg: err.message
@@ -90,7 +91,7 @@ const sendErrorProd = (err, req, res) => {
     // 2) Send generic message
     return res.status(err.statusCode).render('error', {
         title: 'Something went wrong',
-        msg: 'Please try again later'
+        msg: err//'Please try again later'
     });
 
 };
