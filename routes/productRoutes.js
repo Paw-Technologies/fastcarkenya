@@ -9,8 +9,14 @@ const router = express.Router({mergeParams:true});
 router
   .route("/")
   .get(productController.getAllProducts)
-  .post(/*productController.setUserIds,*/productController.uploadProductImages,
-    productController.resizeProductImages,productController.createProduct);
+  // .post(/*productController.setUserIds,*/productController.uploadProductImages,
+  //   productController.resizeProductImages,productController.createProduct);
+
+
+// router.post('/post', upload.fields('images'), async(req, res)=>{
+//     let imageCover = req.files;
+//     console.log(imageCover)
+// })
 
 router
   .route("/:id")

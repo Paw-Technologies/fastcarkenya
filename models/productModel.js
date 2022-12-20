@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
 const productSchema = new mongoose.Schema({
-    title: {
+    brandName: {
         type: String,
         required: [false, 'A product must have a title'],
     },
     price: {
         type: Number,
         required: [false, 'A product must have a price']
+    },
+    category: {
+        type: String
     },
     model: {
         type: String,
@@ -29,10 +32,6 @@ const productSchema = new mongoose.Schema({
         trim: true,
         required: [false, 'A product must have a description']
 
-    },
-    imageCover: {
-        type: String,
-        required: [false, 'A product must have a cover image']
     },
     images: [String],
     isUsed: {
@@ -61,8 +60,8 @@ const productSchema = new mongoose.Schema({
     pcd:  {
         type: String,
     },
-    location: [String],
-    name: [String],
+    location: String,
+    name: String,
     contacts:[String],
     createdBy: {
         type: mongoose.Schema.ObjectId,
