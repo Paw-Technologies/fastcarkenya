@@ -26,8 +26,10 @@ const cloudinaryImageUploadMethod = async file => {
   }
 
 
+
+
   
-  miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
+miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     // save image
     const files = req.files;
 
@@ -39,9 +41,10 @@ const cloudinaryImageUploadMethod = async file => {
     
     // save the product
     let { 
-        title, 
+        brandName, 
         price,
         model,
+        name,
         partNumber,
         year, 
         country,
@@ -60,6 +63,7 @@ const cloudinaryImageUploadMethod = async file => {
 
     let product = new Product({
         brandName: brandName,
+        name: name,
         price: price,
         model: model,
         partNumber: partNumber,
@@ -75,7 +79,7 @@ const cloudinaryImageUploadMethod = async file => {
         cb: cb,
         pcd: pcd,
         location: location,
-        contacts: contacts,
+        contacts: contacts.split(','),
         images: urls,
     })
     
@@ -83,8 +87,9 @@ const cloudinaryImageUploadMethod = async file => {
     .then(resp=>{
         res.status(200).json({
             status: "Success",
-            message: "Producted Has been added",
-            productId: resp._id
+            message: `${req.body.model || req.body.name} Has been added`,
+            productId: resp._id,
+            data: resp
         })
     })
 

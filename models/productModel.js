@@ -5,6 +5,9 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [false, 'A product must have a title'],
     },
+    name: {
+        type: String
+    },
     price: {
         type: Number,
         required: [false, 'A product must have a price']
