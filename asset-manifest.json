@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0dc58868.css",
+    "main.js": "/static/js/main.95ec8473.js",
+    "static/js/787.599254d2.chunk.js": "/static/js/787.599254d2.chunk.js",
+    "static/media/carxray.png": "/static/media/carxray.ff62c5d25fc0548c8634.png",
+    "static/media/Tyres.png": "/static/media/Tyres.7baa68715ff1071a079e.png",
+    "static/media/naVW.png": "/static/media/naVW.b2a759fbe18f60a3a832.png",
+    "static/media/wrap.png": "/static/media/wrap.d7db40bb71681ae894dd.png",
+    "static/media/wheel.png": "/static/media/wheel.d2f0ab03616b3d759749.png",
+    "static/media/batt.png": "/static/media/batt.4ef09a2b3e7cff9285f4.png",
+    "static/media/parts.png": "/static/media/parts.f9db4a62e860c4e8bd4a.png",
+    "static/media/paint.png": "/static/media/paint.46a9a38828c568b31c7a.png",
+    "service-worker.js": "/service-worker.js",
+    "static/media/car.png": "/static/media/car.e80ab8942f87e8b69cbb.png",
+    "static/media/acc.png": "/static/media/acc.5a6fa527e02fa0986f41.png",
+    "static/media/garage.png": "/static/media/garage.f3b3a53656ce823a47cf.png",
+    "index.html": "/index.html",
+    "main.0dc58868.css.map": "/static/css/main.0dc58868.css.map",
+    "main.95ec8473.js.map": "/static/js/main.95ec8473.js.map",
+    "787.599254d2.chunk.js.map": "/static/js/787.599254d2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0dc58868.css",
+    "static/js/main.95ec8473.js"
+  ]
+}
