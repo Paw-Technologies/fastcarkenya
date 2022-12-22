@@ -66,6 +66,10 @@ const productSchema = new mongoose.Schema({
     location: String,
     name: String,
     contacts:[String],
+    seller: { // will check if needed
+        type: String,
+        required: true
+    },
     createdBy: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'

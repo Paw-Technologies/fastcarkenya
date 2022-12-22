@@ -58,10 +58,11 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
         pcd,
         location,
         contacts,
-        category
+        category,
+        seller
      } = req.body
-
     let product = new Product({
+        seller: seller,
         brandName: brandName,
         name: name,
         price: price,
@@ -79,7 +80,7 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
         cb: cb,
         pcd: pcd,
         location: location,
-        contacts: contacts.split(','),
+        contacts: contacts,
         images: urls,
     })
     
@@ -91,8 +92,22 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
             productId: resp._id,
             data: resp
         })
+    }, err=>{
+        console.log(err)
+        res.status(400).json({
+            data: {
+                message: "Error in adding Product, try again later"
+            }
+        })
     })
-
+    .catch(err=>{
+        console.log(err)
+        res.status(400).json({
+            data: {
+                message: "Error in adding product, try again later"
+            }
+        })
+    })
    }
   )
 
