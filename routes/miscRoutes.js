@@ -111,4 +111,21 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
    }
   )
 
+
+miscServer.get('/myproducts', async(req, res)=>{
+    console.log(req.headers)
+    let userProducts = await Product.find({seller: req.headers.userid})
+
+    console.log(req.header)
+    if(userProducts.length < 1) return res.status(404).json({
+        message: "You Haven't added any products",
+    })
+
+    res.status(200).json({
+        message: 'Success',
+        products: userProducts
+    })
+})
+
+
 module.exports = miscServer;

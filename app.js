@@ -7,7 +7,10 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController')
 const userRouter = require('./routes/userRoutes');
 const productRouter =require('./routes/productRoutes');
+
 const miscServer = require('./routes/miscRoutes');
+const sideMisc = require('./routes/sideMisc');
+
 const cloudinary = require('cloudinary').v2
 const app = express();
 
@@ -49,8 +52,9 @@ app.use((req, res, next) => {
 app.use(express.static('./public/img/users/'))
 
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/products', productRouter);
 app.use('/api/v1/products', miscServer)
+app.use('/api/v1/products', productRouter);
+// app.use('/api/misc', sideMisc)
 
 
 
