@@ -113,10 +113,8 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
 
 miscServer.get('/myproducts', async(req, res)=>{
-    console.log(req.headers)
     let userProducts = await Product.find({seller: req.headers.userid})
 
-    console.log(req.header)
     if(userProducts.length < 1) return res.status(404).json({
         message: "You Haven't added any products",
     })
@@ -127,5 +125,53 @@ miscServer.get('/myproducts', async(req, res)=>{
     })
 })
 
+miscServer.post('/editproduct', async(req, res)=>{
+    let update = {}
+    update[ req.body.field ] = req.body.value
+
+    console.log(req.header.prodId)
+    
+    Product.findByIdAndUpdate(req.body.prodId, {$set: update}, (err, doc)=>{
+        if(err){
+            res.status(304).json({
+                message: "Could Not Modify"
+            })
+            return 
+        }
+        res.status(200).json({
+            message: `${req.body.field} has been changed`
+        })
+    })
+    // .then(resp=>{
+    //     console.log("resp", resp)
+    // }, err=>{
+    //     console.log(err)
+    // })
+    // .catch(err=>{
+    //     console.log(err)
+    // })
+})
+
+miscServer.delete('/deleteproduct', async(req, res)=>{
+    await Product.findByIdAndDelete(req.headers.prodid)
+    .then(resp=>{
+        res.status(200).json({
+            message: `${resp.name || resp.brandName} deleted`
+        })
+    }, err=>{
+        res.status(500).json({
+            message: "Could not delete product, try later"
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            message: "Fatal Error, could not delete product, try again later"
+        })
+    })
+})
+
+miscServer.get('/getseller', async(req, res)=>{
+    
+})
 
 module.exports = miscServer;

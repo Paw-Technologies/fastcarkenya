@@ -52,9 +52,10 @@ app.use((req, res, next) => {
 app.use(express.static('./public/img/users/'))
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users', sideMisc);
 app.use('/api/v1/products', miscServer)
 app.use('/api/v1/products', productRouter);
-// app.use('/api/misc', sideMisc)
+
 
 
 

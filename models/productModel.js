@@ -63,9 +63,14 @@ const productSchema = new mongoose.Schema({
     pcd:  {
         type: String,
     },
+    rating: {
+        type: []
+    },
     location: String,
     name: String,
-    contacts:[String],
+    contacts:{
+        type: String
+    },
     seller: { // will check if needed
         type: String,
         required: true
