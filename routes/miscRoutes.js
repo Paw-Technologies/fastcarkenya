@@ -8,6 +8,8 @@ const upload = require("../multer/Multer");
 const dotenv = require('dotenv').config();
 const fs = require('fs');
 const Product = require('../models/productModel');
+const Chat = require('../models/Chat');
+const { default: mongoose } = require('mongoose');
 
 const cloudinaryImageUploadMethod = async file => {
     return new Promise((resolve, reject) => {
@@ -172,6 +174,25 @@ miscServer.delete('/deleteproduct', async(req, res)=>{
 
 miscServer.get('/getseller', async(req, res)=>{
     
+})
+
+
+miscServer.post('/find', async(req, res)=>{
+    Product.find({$text: {$search: req.body.term}}, (err, prod)=>{
+        if(err){
+            console.log(err)
+            return
+        }
+        res.status(200).json({
+            list: prod
+        })
+    })
+})
+
+
+miscServer.post('/sendmessage', async(req, res)=>{
+    let thischat = await Chat.findById(req.body.chatId)
+    console.log(thischat)
 })
 
 module.exports = miscServer;

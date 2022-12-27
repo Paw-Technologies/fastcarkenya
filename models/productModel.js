@@ -85,6 +85,22 @@ const productSchema = new mongoose.Schema({
     toObject: { virtuals: true },
 });
 
+productSchema.index({name: 'text', brandName: 'text', 
+    category: 'text',
+    model: 'text',
+    partNumber: 'text',
+    year: 'text',
+    country: 'text',
+    description: 'text',
+    mileage: 'text',
+    yearOfManufacture: 'text',
+    engineSize: 'text',
+    size: 'text',
+    ET: 'text',
+    cb: 'text',
+    pcd: 'text',
+    location: 'text',
+})
 
 // Query middleware
 productSchema.pre(/^find/, function (next) {
