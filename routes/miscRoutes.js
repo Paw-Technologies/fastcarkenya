@@ -10,6 +10,7 @@ const fs = require('fs');
 const Product = require('../models/productModel');
 const Chat = require('../models/Chat');
 const { default: mongoose } = require('mongoose');
+const User = require('../models/userModel');
 
 const cloudinaryImageUploadMethod = async file => {
     return new Promise((resolve, reject) => {
@@ -172,8 +173,14 @@ miscServer.delete('/deleteproduct', async(req, res)=>{
     })
 })
 
-miscServer.get('/getseller', async(req, res)=>{
-    
+miscServer.get('/getuser', async(req, res)=>{
+    let user = await User.findById(req.headers.userid)
+    if(user){
+        res.status(200).json({
+            user: user
+        })
+    }
+    console.log(user)
 })
 
 
@@ -190,9 +197,60 @@ miscServer.post('/find', async(req, res)=>{
 })
 
 
+miscServer.get('/getchats', async(req, res)=>{
+    // return await Chat.deleteMany({})
+    let chats = await Chat.find({$or: [{seller: req.headers.userid}, {buyer: req.headers.userid}]})
+    
+    res.status(200).json({
+        chats: chats
+    })
+})
+
 miscServer.post('/sendmessage', async(req, res)=>{
-    let thischat = await Chat.findById(req.body.chatId)
-    console.log(thischat)
+    try {
+        let thischat = await Chat.find({_id: req.body.chatId})
+        
+        if(thischat.length < 1){
+            console.log("is there")
+            let newChat = new Chat({
+                buyer: req.body.buyer,
+                seller: req.body.seller,
+                messages: [JSON.parse(req.body.message)]
+            })
+    
+            await newChat.save()
+            .then(resp=>{
+                res.status(200).json({
+                    chatId: resp._id
+                })
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            return
+        }
+
+        // update
+        await Chat.updateOne({_id: req.body.chatId}, {$push: {messages: JSON.parse(req.body.message)}})
+        .then(resp=>{
+            res.status(200).json({
+                message: "Message saved"
+            })
+        }, err=>{
+            res.status(500).json({
+                message: "Could not save the message, try later"
+            })
+        })
+        .catch(err=>{
+            res.status(500).json({
+                message: "Error occurred"
+            })
+        })
+
+    } catch (error) {
+        console.log("consoleed: ",error)
+    }
+    
 })
 
 module.exports = miscServer;

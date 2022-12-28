@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const chats = new mongoose.Schema({
-    sender: {
+    buyer: {
         type: String,
         required: true
     },
-    recepient: {
+    seller: {
         type: String,
         required: true
     },
@@ -15,7 +15,6 @@ const chats = new mongoose.Schema({
         //     message,
         //     timestamps,
         //     senderId,
-        //     recepientId
         // }
     }
 })
