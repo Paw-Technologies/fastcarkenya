@@ -6,19 +6,45 @@ import ImageViewer from '../Components/ImageViewer'
 import Spinner from '../Components/Spinner'
 import './page.css'
 import ReviewList from '../Components/ReviewList'
+import Rate from '../Components/Rate'
+import api2 from '../apis/api2'
 
+const services = ['GARAGES', 'PAINT/BODY SHOPS', 'WRAP SHOPS']
+const stars = ['⭐', '⭐', '⭐', '⭐', '⭐']
 const ViewToBuy = () => {
     const navigate = useNavigate()
     const lokeshen = useLocation()
-    const services = ['GARAGES', 'PAINT/BODY SHOPS', 'WRAP SHOPS']
     const [product, setProduct] = useState(null)
+    const [rating, setRating] = useState("")
     
+    async function getRating(){
+        await api2.get('/getrating', {headers: {product: lokeshen.state.product._id}})
+        .then(res=>{
+            console.log('djla')
+            setRating(res.data.rating)
+            return
+        }, ({response})=>{
+            console.log(response)
+        })
+        .catch(err=>{
+            setRating('Not rated Yeeet')
+        })
+    }
     
+    useEffect(()=>{
+        if(typeof(lokeshen.state.product) === 'undefined') return console.log('heo')
+        if(services.includes(lokeshen.state.product.category)){
+            getRating()
+        }else{
+            console.log("wwwww")
+        }
+    }, [])
+
     useEffect(()=>{
         try {
             if (typeof(lokeshen.state.product) === 'undefined') return navigate('../')
             setProduct(lokeshen.state.product)
-            //console.log(lokeshen.state.product)
+
         } catch (error) {
             navigate('/')
         }
@@ -85,6 +111,7 @@ const ViewToBuy = () => {
             {services.includes(product.category) && <>
                 <div>
                     <h1 className='h1'>{product.name}</h1>
+                    <h3>Rating: {rating > 0 ? stars.slice(0, rating)+`(${rating})` : 'Not rated yet'}</h3>
                 </div>
             </>}
             <div className='desc'>
@@ -98,11 +125,11 @@ const ViewToBuy = () => {
                     Start a chat <MdChat />
                 </button>
             </div>
-
-            {services.includes(product.category) && <>
+            <Rate product={product._id} />
+            {/* {services.includes(product.category) && <>
             <h1 className='h1'>Reviews</h1>
                 <ReviewList />
-            </>}
+            </>} */}
             
         </section>
     </div>

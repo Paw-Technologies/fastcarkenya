@@ -14,6 +14,16 @@
   color: black;
 }
 
+/* start button styling */
+.starBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #adaaaa;
+  background-color: transparent;
+  font-size: 28px;
+}
+
 textarea {
   font-family: inherit;
   font-size: inherit;
@@ -144,10 +154,18 @@ button {
 .button1 {
   width: 90%;
   height: 3em;
+  line-height: 3em;
+  display: grid;
+  gap: 2%;
+  grid-auto-flow: column;
+  justify-content: center;
   color: white;
   background-color: #F62147;
   margin-left: auto;
   margin-right: auto;
+}
+.button1 * {
+  margin: auto;
 }
 .button1:active {
   background-color: #f34064;
