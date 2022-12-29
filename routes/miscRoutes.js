@@ -11,6 +11,8 @@ const Product = require('../models/productModel');
 const Chat = require('../models/Chat');
 const { default: mongoose } = require('mongoose');
 const User = require('../models/userModel');
+const Event = require('../models/Event');
+
 
 const cloudinaryImageUploadMethod = async file => {
     return new Promise((resolve, reject) => {
@@ -30,7 +32,51 @@ const cloudinaryImageUploadMethod = async file => {
 
 
 
+miscServer.post('/addevent', upload.single('image'), async(req, res)=>{
+    const file = req.file
+    let { location, date, description, title } = req.body
+    let imageUrl = await cloudinaryImageUploadMethod(file)
+    
+    console.log(req.headers)
+    let newEvent = new Event({
+        image: imageUrl,
+        title: title,
+        postedBy: req.headers.userid,
+        location: location,
+        date: date,
+        description: description
+    })
+    await newEvent.save()
+    .then(resp=>{
+        res.status(200).json({
+            message: 'Event Added'
+        })
+    }, err=>{
+        
+        res.status(500).json({
+            message: err.message
+        })
+    })
+    .catch(err=>{
+        res.json({
+            message: "Error Occured"
+        })
+    })
+})
 
+miscServer.get('/getevents', async(req, res)=>{
+    let events = await Event.find();
+    res.status(200).json({
+        events: events
+    })
+})
+
+miscServer.get('/getmyevents', async(req, res)=>{
+    let events = await Event.find({postedBy: req.headers.userid})
+    res.status(200).json({
+        events: events
+    })
+})
   
 miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     // save image
@@ -207,6 +253,7 @@ miscServer.get('/getchats', async(req, res)=>{
 })
 
 miscServer.post('/sendmessage', async(req, res)=>{
+    
     try {
         let thischat = await Chat.find({_id: req.body.chatId})
         
@@ -225,7 +272,7 @@ miscServer.post('/sendmessage', async(req, res)=>{
                 })
             })
             .catch(err=>{
-                console.log(err)
+                console.log("xmx", err)
             })
             return
         }
@@ -234,7 +281,7 @@ miscServer.post('/sendmessage', async(req, res)=>{
         await Chat.updateOne({_id: req.body.chatId}, {$push: {messages: JSON.parse(req.body.message)}})
         .then(resp=>{
             res.status(200).json({
-                message: "Message saved"
+                message: "Message saved",
             })
         }, err=>{
             res.status(500).json({

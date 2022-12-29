@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+// import secket io
+const socketio = require('socket.io')
+
 
 // config.env
 const dotenv = require("dotenv");
@@ -32,6 +35,8 @@ const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`App Running on port ${port}...`);
 });
+
+const io = socketio(server)
 
 process.on("unhandledRejection", (err) => {
   console.log(err.name, err.message);
