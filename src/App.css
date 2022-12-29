@@ -1,0 +1,253 @@
+@font-face {
+  font-family: cehua;
+  src: url(./Fonts/cehua.otf);
+}
+
+* {
+  border: none;
+  outline: none;
+  margin: 0;
+  position: relative;
+}
+.App {
+  text-align: center;
+  color: black;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  width: 90%;
+  margin: auto;
+}
+.iconBtn1 {
+  width: 45px;
+  height: 45px;
+  margin: auto;
+  color: #ff5070;
+  font-size: 18px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.192);
+  transition: height 0.5s, width 0.8s;
+  z-index: 30;
+}
+.iconBtn1:active {
+  background-color: #acacac;
+  color: white;
+  width: 50px;
+  height: 50px;
+}
+
+.dashBtn {
+  min-width: 100px;
+  font-size: 18px;
+  background-color: transparent;
+  text-align: center;
+  color: white;
+}
+.inp2 {
+  width: 300px;
+  height: 3em;
+  outline: 2px solid #f34064;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+.companyTitle {
+  width: 20vw;
+  height: 3em;
+  margin: auto;
+  line-height: 3em;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 50%;
+  font-family: cehua;
+  font-size: 1.5em;
+  color: white;
+  user-select: none;
+}
+.companyTitle img {
+  width: 100%;
+  height: 3em;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #202020;
+}
+nav {
+  width: 100%;
+  height: 5em;
+  line-height: 5em;
+  background-color: #F62147;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.377);
+}
+footer {
+  width: 100%;
+  height: 50vh;
+  background-color: #202020;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: 70%;
+  text-align: center;
+  text-align: center;
+  color: white;
+}
+footer a {
+  width: max-content;
+  height: 3em;
+  line-height: 3em;
+  text-decoration: none;
+  color: white;
+  display: grid;
+  grid-auto-flow: column;
+}
+footer a *:nth-child(1) {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 2em;
+}
+footer div:nth-child(1) {
+  display: grid;
+  grid-auto-flow: column;
+  width: 90%;
+  margin-left: auto;
+}
+footer section {
+  display: grid;
+  text-align: left;
+}
+.tagBtn {
+  margin: 0.5%;
+  min-width: 6em;
+  height: 1.5em;
+  background-color: #f34064;
+  border-radius: 5px;
+}
+.dropBtn {
+  width: 200px;
+  height: 2.5em;
+  background-color: white;
+  color: black;
+}
+.dropBtn:active {
+  background-color: gray;
+}
+button {
+  user-select: none;
+}
+.button1 {
+  width: 90%;
+  height: 3em;
+  color: white;
+  background-color: #F62147;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button1:active {
+  background-color: #f34064;
+}
+.button2 {
+  width: 300px;
+  height: 200px;
+  margin: 1%;
+  border-radius: 10px;
+  font-size: 24px;
+  background: linear-gradient(45deg, #fc3358, #ff002f);
+  color: white;
+}
+input, select {
+  width: 90%;
+  height: 36px;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5%;
+  background-color: white;
+  color: black;
+  outline: transparent;
+}
+.input1, .select1 {
+  border-bottom: 2px solid #e0baff ;
+  background-color: transparent;
+  color: black;
+  background-color: white;
+}
+.input1:focus {
+  border-bottom: 2px solid #e700fc;
+}
+.select1 {
+  outline: 0px !important;
+  -webkit-appearance: none;
+}
+/* fancy heading 1 */
+.h1 {
+  width: 40%;
+  text-align: left;
+  font-weight: bolder;
+  margin-left: 5%;
+  font-size: 3em;
+  /**border-bottom: 2px solid #F62147;*/
+}
+.iconBtn {
+  width: 5em;
+}
+.linkBtn {
+  height: 3em;
+  font-size: 18px;
+  width: max-content;
+  line-height: 3em;
+  color: white;
+  min-width: 100px;
+  margin: auto;
+  background-color: transparent;
+  transition: width 0.5s;
+  border: transparent;
+  border-bottom: 0.5px solid #ff5070;
+}
+
+.linkBtn:active {
+  background-color: #ff0d39;
+}
+
+.dropBtn {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hamburgher{
+  width: 3em;
+  display: none;
+  height: 2em;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: transparent;
+}
+.hamburgher div {
+  width: 150%;
+  height: 4px;
+  margin-left: -50%;
+  background-color: white;
+}
+.hamburgher .dropDown {
+  position: absolute;
+  margin-top: 100% !important;
+  background-color: white;
+  left: calc(100% - 80vw);
+  width: 80vw;
+  height: fit-content;
+  padding-bottom: 2%;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.63);
+}
+.hamburgher .dropDown button {
+  width: 100%;
+  background-color: white;
+}
+.hamburgher .dropDown button:active {
+  background-color: gray;
+}

@@ -1,0 +1,126 @@
+.page {
+    min-height: 90vh;
+    width: 100%;
+}
+#home {
+    text-align: left;
+    min-height: 100vh;
+}
+
+#authPage  {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 50%;
+}
+#authPage .illust {
+    width: 100%;
+    display: block;
+}
+#authPage div img {
+    width: 100%;
+}
+
+#viewToBuy {
+    width: inherit;
+    max-width: 1920px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 60%;
+}
+#viewToBuy .h1 {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#viewToBuy * {
+    padding: 0;
+}
+#viewToBuy .buySection {
+    width: 100% ;
+    display: grid;
+    grid-auto-flow: row;
+    background-color: white;
+    margin: 0 !important;
+}
+.buySection button {
+    margin: 2%;
+}
+.buySection .buyDetails {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    top: 5%;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(3em, fit-content);
+    background-color: white;
+    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.034);
+}
+.buyDetails div {
+    width: 100%;
+    height: 2em;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 2em;
+    grid-auto-flow: column;
+    grid-template-columns: 40%;
+    border-bottom: 0.5px solid gray;
+}
+.buyDetails div p {
+    min-width: min-content;
+    width: 130px;
+    text-overflow: ellipsis;
+    height: calc(fit-content + 5px);
+    text-indent: 5%;
+    line-height: min;
+    text-align: left;
+    font-weight: bolder;
+    background-color: #D1D1D1;
+}
+
+.buyDetails div h2, .buyDetails div em{
+    text-align: left;
+    text-indent: 5%;
+    font-weight: lighter;
+    width: 100%;
+}
+.buySection .desc {
+    outline: transparent;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+@media only screen and (max-width: 600px){
+    .page {
+        padding-bottom: 20%;
+    }
+    .buySection {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.322);
+    }
+    .authPage {
+        grid-auto-flow: row;
+    }
+
+    #viewToBuy {
+        grid-auto-flow: row;
+        grid-template-columns: none;
+    }
+    #viewToBuy span {
+        grid-auto-flow: row;
+        grid-auto-rows: none;
+    }
+    .buySection .desc {
+        margin-top: 10%;
+    }
+    #authPage {
+        display: block !important;
+        grid-template-columns: none;
+    }
+
+}

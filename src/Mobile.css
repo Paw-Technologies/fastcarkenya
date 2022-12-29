@@ -1,0 +1,146 @@
+
+@media only screen and (max-width: 600px){
+    p {
+        font-weight: light;
+    }
+    nav {
+      height: 4em !important;
+      line-height: 4em !important;
+    }
+    /* reviews */
+    .reviews {
+      position: sticky !important;
+      top: 50px !important;
+      background-color: white;
+    }
+    /* edit form styling */
+    .editAccountForm {
+      padding-bottom: 14% !important;
+    }
+    /* add event form */
+    .addEventForm {
+      width: 100% !important;
+    }
+    .companyTitle {
+      width: inherit !important;
+      height: inherit !important;
+      font-size: 1.2em !important;
+    }
+    .companyTitle img {
+      width: ;
+    }
+    .imageViewer {
+      width: 100vw !important;
+      position: sticky !important;
+      height: 50vh !important;
+      top: 0;
+      grid-template-rows: 60% !important;
+    }
+    .mainImg {
+      height: 30vh !important;
+    }
+    .hamburgher {
+      display: grid;
+    }
+    .mainNav {
+      margin-bottom: 10%;
+    }
+    .mobileSearchBar {
+      width: 100%;
+      height: 3em;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: 70%;
+      background-color: white;
+      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.26);
+    }
+    .mainNav .linkBtns {
+      display: none !important;
+    }
+    .homeTopNav {
+      margin-top: 7%;
+        height: 200px !important;
+    }
+    .homeTopNav div h1 {
+        font-size: 200% !important;
+    }
+    .homeTopNav .banner img {
+      width: 70%;
+    }
+    .homeTopNav .banner h1 {
+      text-align: right;
+    }
+    .category {
+      width: 95% !important;
+    }
+    .showProduct {
+      width: 100% !important;
+      grid-auto-flow: column !important;
+      display: none;
+      grid-template-columns: 40%;
+    }
+    .authForm {
+      width: 90% !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .categoryIcons {
+        transition: height 0.5s, width 0.05s !important;
+        margin:auto;
+        margin-bottom: 2%;
+    }
+    .mobileSearchBar button {
+        height: 3em;
+        width: 100%;
+        background-color: #FB244F;
+        color: white;
+    }
+    
+    .mobileSearchBar .faSearch{
+        width: 1em;
+        height: 1em;
+        color: white;
+    }
+    .mobileSearchBar div {
+        position: absolute;
+        width: 100vw;
+        display: grid;
+        grid-auto-flow: column;
+        background-color: white;
+        margin-left: calc(100% - 65vw);
+        padding-bottom: 1vh;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.288);
+    }
+    /* foot navigation in android */
+    .footNav {
+        position: fixed !important;
+        bottom: 0;
+        height: 50px;
+        min-height: 50px !important;
+        line-height: 4em;
+        width: 100%;
+        background-color: #ff4264;
+        display: grid;
+        grid-auto-flow: column;
+        z-index: 5000;
+        box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.267);
+    }
+    .footNav div {
+      height: inherit;
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-rows: 40%;
+      color: white;
+      font-weight: lighter;
+      place-content: center;
+    }
+    .addProductForm * {
+        width: 100% !important;
+    }
+    .addProductForm {
+        padding-top: 5%;
+        padding-bottom: 70% !important;
+    }
+
+  }
+  

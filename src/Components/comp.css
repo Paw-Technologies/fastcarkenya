@@ -1,0 +1,718 @@
+
+/* myevents */
+.myevents {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-auto-flow: row;
+}
+
+/* show event */
+.showEvent {
+    width: 20em;
+    min-height: 20vh;
+    padding-bottom: 2%;
+    display: grid;
+    grid-auto-flow: row;
+    text-align: left;
+    margin: 1%;
+    background-color: white;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.171);
+    grid-template-rows: 6vh 30vh max-content;
+}
+.showEvent h1 {
+    font-weight: lighter;
+    height: 3em;
+    line-height: 3em;
+    background-color: #d1223f;
+    color: white;
+}
+.showEvent div {
+    text-indent: 22px;
+}
+.showEvent img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* chatopen styling */
+
+.chatOpen {
+    width: 100%;
+    height: 90vh;
+    display: grid;
+    grid-auto-flow: row;
+    top: 0;
+    grid-template-rows: 7vh 75vh max-content;
+    background-color: #ffffff;
+}
+.chatOpen .messages {
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    background-color: #f7f3f3;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 2%;
+    color: #f08294;
+}
+.message {
+    width: max-content;
+    height: max-content;
+    min-width: 10em;
+    min-height: 3em;
+    text-align: left;
+    border-radius: 10px;
+    color: white;
+    padding: 2%;
+    background-color: #a1a1a1;
+}
+.chatHeader {
+    width: 100%;
+    height: 3em;
+    background-color: #ff264a;
+    line-height: 3em;
+    text-align: justify;
+    color: white;
+    text-indent: 3%;
+}
+.msgInputBar {
+    width: 70%;
+    height: 4em;
+    line-height: 4em;
+    justify-content: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 90%;
+    grid-template-rows: none;
+    justify-content: flex-start;
+    position: fixed;
+    gap: 0;
+    bottom: 0;
+    background-color: rgb(255, 38, 74);
+}
+.msgInputBar input {
+    margin: auto;
+}
+.msgInputBar button {
+    width: 40px;
+    height: 40px;
+    font-size: 36px;
+    color: white;
+    margin: auto;
+    margin-left: ;
+    background-color: transparent;
+}
+.msgInputBar button:active {
+    color: rgb(201, 4, 37);
+}
+
+/* edit product */
+.EditProductMajor {
+    width: 25em;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 2%;
+    padding-bottom: 2em !important;
+    margin: 2%;
+    padding: 1%;
+    background-color: white;
+    justify-content: start;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.151);
+    transition: height 1s;
+}
+.EditProductMajor .btns {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+}
+.EditProduct {
+    width: inherit;
+    background-color: white;
+    text-align: left;
+    overflow: hidden;
+    margin: auto;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: fit-content;
+    transition: height 4s linear;
+}
+.EditProduct .selectImage div {
+    height: 10vh;
+    width: 10vh;
+    grid-template-columns: none;
+    background-color: white;
+}
+.EditProduct .selectImage div img {
+    height: inherit;
+}
+.EditProduct label {
+    height: 3em;
+    line-height: 3em;
+    background-color: white;
+}
+.EditProduct div {
+    width: 98%;
+    margin: auto;
+    height: max-content;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 30%;
+}
+.EditProduct textarea {
+    min-height: 20vh;
+}
+.EditProduct .imageViewer {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: none;
+    overflow: hidden;
+    background-color: #202020;
+}
+.EditProduct .mainImg {
+    width: inherit !important;
+    height: 30vh;
+    grid-template-columns: none;
+}
+.EditProduct .mainImg img {
+    width: 100% !important;
+    height: inherit !important;
+    object-fit: contain;
+    margin: auto;
+}
+.EditProduct .selectImage {
+    height: 10vh !important;
+}
+
+/* review list  */
+.reviews {
+    height: max-content;
+    overflow-y: scroll;
+}
+.reviews::-webkit-scrollbar {
+    width: 2px;
+    background: #d1223f;
+}
+.reviews::-webkit-scrollbar-thumb {
+    width: 10px;
+    height: 20px;
+    background: #d1223f;
+}
+.reviewWidget {
+    width: 95%;
+    min-height: 3em;
+    height: max-content;
+    border-radius: 5px;
+    margin: auto;
+    background-color: white;
+    text-indent: 4%;
+    padding-top: 2vh !important;
+    padding-bottom: 2vh !important;
+    text-align: left;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.116);
+}
+.reviewWidget span {
+    width: 92%;
+    display: grid;
+    grid-auto-flow: column;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+/* mycatalogue style */
+.myCatalogue {
+    width: 98%;
+    max-height: 90vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+}
+.myCatalogue .list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+/* notification styling */
+.notification {
+    width: 20em;
+    min-height: 4em;
+    background-color: white;
+    position: fixed;
+    top: 15%;
+    text-indent: 5%;
+    z-index: 200;
+    transition: display 1s;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.192);
+}
+.notification h1 {
+    font-size: 1.8em;
+    height: fit-content;
+    box-shadow: none !important;
+    border-bottom: 0.5px solid black;
+}
+
+/* account form styling */
+.editAccountForm {
+    margin-top: 5%;
+    height: calc(max-content + 10vh) !important;
+    min-width: 45vh;
+    max-width: 90vh;
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-auto-flow: row;
+    gap: 2%;
+    background-color: white;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.281);
+    padding-bottom: 4%;
+}
+.editAccountForm .avi {
+    width: 30vh !important;
+    height: 30vh;
+    border-radius: 50%;
+    background-color: #d1cfcf;
+    margin: auto;
+    overflow: hidden;
+}
+.editAccountForm .avi img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* add event form */
+.addEventForm {
+    width: 90%;
+    height: 90vh;
+    margin: auto;
+    display: grid;
+    margin-top: 5%;
+}
+
+/* imageViewer */
+.imageViewer {
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: 85%;
+}
+.mainImg {
+    width: inherit;
+    height: 100%;
+    overflow: hidden;
+}
+.arrowBtn {
+    width: 3em;
+    margin-right: 0.5%;
+    background-color: #F62147;
+    color: white;
+    height: 3em;
+    top: calc((100% - 3em) / 2);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 100;
+}
+
+.mainImg img {
+    width: 90%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+}
+.imageViewer .selectImage {
+    width: 100%;
+    height: 20vh;
+    display: grid;
+    overflow: hidden;
+    overflow-x: auto;
+    background-color: #bbbbbb;
+    color: #fac8d1;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+}
+
+.selectImage div {
+    width: 20vh;
+    height: 20vh;
+}
+.selectImage div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* convListItem styling */
+.convListItem {
+    width: 90%;
+    min-height: 5em;
+    margin: auto;
+    text-align: left;
+    padding: 2%;
+    background-color: #F3F3F3;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.158);
+}
+
+
+/* filters styling */
+.filters {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 4em;
+    background-color: #ebe6e6;
+    z-index: 200;
+}
+.filters .search {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    grid-template-columns: 10%;
+    background-color: white;
+}
+.filters input[type='checkbox']{
+    width: 25px;
+    margin: auto;
+}
+.filters .search .icon {
+    width: 100%;
+    height: 1.2em;
+    margin: auto;
+}
+.filters .search input {
+    margin: auto;
+}
+.filters .subFilters {
+    width: 90%;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 3.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.filters .subFilters label {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    background-color: rgb(221, 219, 219);
+}
+.filters span {
+    display: grid;
+    line-height: 3em;
+    grid-auto-flow: column;
+}
+
+/* image upload component */
+.imgUpload {
+    width: 90%;
+    height: 15em;
+    background-color: #d1d1d1;
+    color: white;
+    text-align: center;
+    line-height: 13em;
+    margin: auto;
+}
+.imgUpload img {
+    width: 100%;
+    height: inherit;
+    margin:auto;
+    object-fit: contain;
+}
+.imgUpload input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* add product form */
+.addProductForm {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    row-gap: 2%;
+    grid-auto-flow: row;
+    text-align: left;
+    padding-bottom: 5%;
+}
+.addProductForm textarea {
+    width: 100%;
+    min-height: 30vh;
+    background-color: #e0e0e0;
+    font-size: inherit;
+    font-family: inherit;
+}
+.addProductForm textarea:focus {
+    outline: 2px solid #ffaebd;
+}
+
+.addProductForm button {
+    margin-right: 10%;
+}
+.addProductForm div {
+    width: 90%;
+    margin-right: auto;
+    display: grid;
+    grid-auto-flow: row;
+    flex-wrap: wrap;
+}
+.addProductForm div label {
+    width: 90%;
+    height: 3em;
+    line-height: 3em;
+    flex-basis: 40%;
+}
+.addProductForm .input1, select {
+    margin-right: 10%;
+}
+
+/* dashboard navigation bar */
+.dashNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* category banner styling */
+.categoryBanner {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-auto-flow: row;
+}
+.categoryBanner button {
+    width: 15em;
+    height: 3em;
+    line-height: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    background-color: #202020;
+}
+/* category icons */
+.categoryIcons {
+    color: #F62147;
+    margin: 1%;
+    min-height: calc(max-content);
+    display: grid;
+    line-height:  20px;
+    text-align: center !important;
+    border-radius: 15px;
+    box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.075);
+    background-color: #ffffff;
+    transition: height 0.7s, width 0.7s;
+    -webkit-transition: height 0.7s, width 0.7s;
+    -o-transition: height 0.7s, width 0.7s;
+}
+
+.categoryIcons p {
+    width: 100%;
+    font-size: 20px;
+    font-size: 14px;
+    font-weight: light;
+}
+.categoryIcons img{
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    scale: 1.1;
+    object-fit: contain;
+}
+
+/* auth form styling */
+.authForm {
+    width: 90%;
+    min-height: 30vh;
+    height: 80%;
+    padding: 1%;
+    display: grid;
+    grid-auto-flow: row;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 8px 16px rgba(218, 71, 71, 0.137);
+}
+.authForm * {
+    margin-top: 2%;
+    width: 90%;
+}
+/* spinner styling */
+.spinner {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    margin-top: calc((100% - 40px)/3);
+    margin-left: calc((100% - 40px)/2);
+    position: absolute;
+    z-index: 500;
+    background-color: transparent;
+    border: 4px solid #ffbdc9;
+    border-top: 4px solid #F62147;
+    animation: spin 0.5s forwards linear infinite ;
+}
+@keyframes spin {
+    from{transform: rotateZ(-360deg);}
+}
+
+/* category listing styling */
+.category {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: stretch;
+    align-self: flex-start;
+    transition: height 2s;
+    place-items: top;
+}
+
+/* show product */
+.showProduct {
+    width: 15vw;
+    height: max-content;
+    margin: 1%;
+    display: grid;
+    grid-auto-flow: row;
+    text-align: left;
+    padding: 0%;
+    padding-bottom: 2vh;
+    min-width: 15em;
+    cursor: pointer;
+    background-color: white;
+    transition: transform 0.2s, border-radius 0.2s, box-shadow 0.2s;
+    box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.075);
+}
+.showProduct:hover {
+    transform: scale(1.05);
+    /* background-color: #f7f7f7; */
+    border-radius: 10px;
+    box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.13);
+}
+.showProduct .tags {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5%;
+}
+.showProduct .description {
+    width: 90%;
+    margin: auto;
+}
+.showProduct .description h2 {
+    color: #F62147;
+    font-size: 18px;
+    font-weight: light;
+}
+.showProduct img {
+    width: 100%;
+    height: 20vh;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    transition: transform 0.5s, width 0.1s linear, height 0.1s linear;
+}
+.showProduct img:hover {
+    transform: scale3d(2) ;
+    width: 100%;
+    height: 22vh;
+}
+.showProduct span {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+/* top navigation */
+.homeTopNav {
+    width: 100%;
+    height: 300px;
+    background-color: #F62147;
+}
+.homeTopNav .banner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #F62147;
+    top: 0;
+    left: 0;
+}
+.homeTopNav .banner h1 {
+    font-size: 5vw;
+    color: white;
+    width: 70%;
+    margin-top: auto;
+    margin-left: auto;
+}
+.homeTopNav div img {
+    height: inherit !important;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+/* navigation bar */
+.mainNav {
+    width: 100% !important;
+    height: 5em !important;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: 70%;
+}
+.mainNav div {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content:space-evenly;
+    grid-auto-columns: max-content;
+}
+.mainNav .linkBtns {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    width: 90%;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-end;
+    gap: 2%;
+}
+
+.searchBar{
+    width: 100%;
+    height: 2.5em;
+    line-height: 2.5em;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 80% 20%;
+    background-color: rgb(209, 209, 209);
+    justify-content: center;
+}
+.searchBar input {
+    height: 30px;
+    margin: auto;
+}
+.searchBar .filterBtn{
+    width: 100px;
+    height: 100%;
+    background-color: #991029;
+    color: white;
+}
