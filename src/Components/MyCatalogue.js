@@ -19,15 +19,12 @@ const MyCatalogue = () => {
   async function get_cata(){
     await api2.get('/myproducts',  {headers: { userId: rtUserId() }})
     .then(res=>{
-      console.log(res.data)
       setUserProd(res.data.products)
     }, ({response})=>{
       setMessage(response.data.message)
-      console.log(response)
     })
     .catch(({response})=>{
       setMessage(response.data.message)
-      console.log(response)
     })
   }
   

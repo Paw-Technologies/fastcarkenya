@@ -23,7 +23,7 @@ const ImageUpload = (props) => {
             }
             setTxt(e.target.value.name)
         } catch (error) {
-            console.log(error)
+                
         }
         
     }

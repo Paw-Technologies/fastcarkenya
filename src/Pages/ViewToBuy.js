@@ -20,11 +20,10 @@ const ViewToBuy = () => {
     async function getRating(){
         await api2.get('/getrating', {headers: {product: lokeshen.state.product._id}})
         .then(res=>{
-            console.log('djla')
             setRating(res.data.rating)
             return
         }, ({response})=>{
-            console.log(response)
+                
         })
         .catch(err=>{
             setRating('Not rated Yeeet')
@@ -32,11 +31,9 @@ const ViewToBuy = () => {
     }
     
     useEffect(()=>{
-        if(typeof(lokeshen.state.product) === 'undefined') return console.log('heo')
+        if(typeof(lokeshen.state.product) === 'undefined') return
         if(services.includes(lokeshen.state.product.category)){
             getRating()
-        }else{
-            console.log("wwwww")
         }
     }, [])
 
@@ -121,7 +118,11 @@ const ViewToBuy = () => {
                 <button className='button1' >
                     Call Seller <MdCall />
                 </button>
-                <button className='button1' onClick={()=>navigate('/dashboard/messages', {state: {seller: product.seller}})}>
+                <button className='button1' onClick={()=>{
+                        if(window.innerWidth > 599) return navigate('/dashboard/messages', {state: {seller: product.seller}})
+                        return navigate('/dashboard/messages/openchat', {state: {seller: product.seller}})
+                }
+                }>
                     Start a chat <MdChat />
                 </button>
             </div>

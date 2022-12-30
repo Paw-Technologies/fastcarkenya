@@ -20,6 +20,11 @@ const Messages = () => {
       await api2.get('/getchats', {headers: {userid: rtUserId()}})
       .then(res=>{
         setChats(res.data.chats)
+      }, err=>{
+        
+      })
+      .catch(err=>{
+
       })
     }
 
@@ -27,7 +32,7 @@ const Messages = () => {
   }, [chats, currentChat])
 
   const ChatList = <>
-    <h1 className='h1'>Messages</h1>
+    <h1 className='divH1'>Messages</h1>
       <div>
           {chats.map(chat=><ConversationTitle 
             key={chat._id}
@@ -38,12 +43,14 @@ const Messages = () => {
   </>
 
   if(window.innerWidth < 600) return(
-    <>
-      <Routes>
+    <div className='subPage' id='messages'>
+      {lokeshen.pathname.includes('/chatlist') && ChatList}
+      {lokeshen.pathname.includes('/openchat') && <ChatOpen chat={currentChat} />}
+      {/* <Routes>
         <Route exact path={'/dashboard/messages'} element={ChatList} />
         <Route exact path={'/chat'} element={<ChatOpen />} />
-      </Routes>
-    </>
+      </Routes> */}
+    </div>
   )
 
   return (

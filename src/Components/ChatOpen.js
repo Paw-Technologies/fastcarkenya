@@ -20,11 +20,9 @@ const ChatOpen = (props) => {
   useEffect(()=>{
     let checkUser = sessionStorage.getItem(`${contactId()}`)
       const x = async() =>{
-        let userDet = await getUser(contactId())
-        // console.log(y)
+        let userDet = await getUser(contactId()).then().catch()
         setUser(userDet.data.user)
         sessionStorage.setItem(`${contactId()}`, JSON.stringify(userDet.data.user))
-        console.log(contactId())
       }
       if(checkUser === 'undefined' || checkUser === null){
         x()

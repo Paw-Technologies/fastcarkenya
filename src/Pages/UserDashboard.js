@@ -11,7 +11,6 @@ import { useToken } from '../customHooks/useToken'
 import Account from '../Subpages.js/Account'
 import Messages from '../Subpages.js/Messages'
 import MyProducts from '../Subpages.js/MyProducts'
-import Orders from '../Subpages.js/Orders'
 import UserEvents from '../Subpages.js/UserEvents'
 import AuthPage from './AuthPage'
 
@@ -32,7 +31,6 @@ const UserDashboard = () => {
     <div className='page' id='userDashboard'>
       <DashboardNav />
       <Routes> 
-        <Route exact path='/' element={<Orders />} />
         <Route exact path='/addproduct/' element={<MyProducts />} />
         <Route exact path='/addevent/' element={<UserEvents />} />
         <Route exact path='/messages/*' element={<Messages />} />

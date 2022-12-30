@@ -44,13 +44,12 @@ const EditProduct = (props) => {
         }
         await api2.post('/editproduct', body)
         .then(res=>{
-            console.log(res.data)
             setMessage(res.data.message)
         }, ({response})=>{
-            console.log(response)
+        //     console.log(response)
         })
         .catch(({response})=>{
-            console.log(response)
+        //     console.log(response)
         })
     }
 

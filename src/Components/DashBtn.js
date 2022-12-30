@@ -9,7 +9,6 @@ const DashBtn = (props) => {
     if(props.state) return navigation("/dashboard/"+props.path, 
     {state: {state: props.state}})
     navigation("/dashboard/"+ props.path)
-    console.log(props.path)
   }
 
   return (

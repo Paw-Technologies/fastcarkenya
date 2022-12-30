@@ -9,6 +9,7 @@ import api2 from '../apis/api2'
 import { Cookies, useCookies } from 'react-cookie'
 import { add_to_global_products } from '../Store.js/store'
 import TopShops from '../Components/TopShops'
+import Allevents from '../Components/Allevents'
 
 const Home = () => {
   const cookie = new Cookies()
@@ -22,11 +23,10 @@ const Home = () => {
       // send to redux
       dispatch(add_to_global_products(resp.data.data.data)) 
     }, ({response})=>{
-      console.log("this ", response)
       
     })
     .catch(({response})=>{
-      console.log(response)
+        
     })
 }
   useEffect(()=>{
@@ -43,6 +43,7 @@ const Home = () => {
         <h1 className='h1'>Top Shops</h1>
         <TopShops />
         <h1 className='h1'>Automotive Events</h1>
+        <Allevents />
         <Footer />
     </div>
   )

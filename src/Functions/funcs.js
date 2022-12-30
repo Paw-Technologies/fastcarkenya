@@ -25,7 +25,6 @@ export const holdToDelete = (e, id) =>{
         return
     }
     if(e.type==='mouseup'){
-        console.log(Date.now(), ';;;', stop)
         stop = Date.now()
         if ((stop - start)/1000 >= 5){
             return delProduct(id)

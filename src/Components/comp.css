@@ -28,7 +28,7 @@
     margin: 1%;
     background-color: white;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.171);
-    grid-template-rows: 6vh 30vh max-content;
+    grid-auto-rows: max-content;
 }
 .showEvent h1 {
     font-weight: lighter;
@@ -42,7 +42,7 @@
 }
 .showEvent img {
     width: 100%;
-    height: 100%;
+    height: 30vh;
     object-fit: contain;
 }
 
@@ -80,6 +80,24 @@
     color: white;
     padding: 2%;
     background-color: #a1a1a1;
+}
+.chatList .divH1 {
+        height: 3em;
+        line-height: 3em;
+        text-align: left;
+        text-indent: 10%;
+        position: sticky;
+        top: 0 !important;
+        background-color: white !important;
+        z-index: 300;
+}
+.chatList div {
+        top: 3%;
+        display: grid;
+        grid-auto-flow: row;
+        grid-auto-rows: max-content;
+        gap: 1.8em;
+        height: inherit;
 }
 .chatHeader {
     width: 100%;

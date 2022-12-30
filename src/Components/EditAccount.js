@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import api from '../apis/api'
+import { useUserId } from '../customHooks/useUserId'
 import './comp.css'
 
 const EditAccount = () => {
-    const cookie = new Cookies()
+        const { rtUserId } = useUserId()
     const original = useRef()
     const [conf, setConf] = useState({change: false, value: ""})
     const [user, setUser] = useState({
@@ -15,7 +16,7 @@ const EditAccount = () => {
         password: "",
     })
     async function getdata(){
-        await api.get(`/me`, {headers: {id: cookie.get('userId')}})
+        await api.get('/me', {headers: {id: rtUserId()}})
             .then(res=>{
                 setUser(p=>({...p,
                     avi: res.data.data.photo,
@@ -23,13 +24,12 @@ const EditAccount = () => {
                     email: res.data.data.email
                 }))
                 original.current = res.data.data
-                console.log(user)
 
             }, ({response})=>{
-                console.log(response)
+                // console.log(response)
             })
             .catch(({response})=>{
-                console.log(response)
+                // console.log(response)
         })
     }
     const [changed, setChanged] = useState(false)

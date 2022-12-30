@@ -13,7 +13,6 @@ export const useLongHold = () => {
             return setTime(p=>({...p, start: Date.now()})) 
         }
         if(e.type==='mouseup'){
-            console.log(time.start>time.stop)
 
             setTime(p=>({...p, stop: Date.now()}))
             if ((time.stop - time.start)/1000 >= 5){

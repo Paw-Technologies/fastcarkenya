@@ -21,10 +21,10 @@ const SearchPage = () => {
         setList(res.data.list)
         keepList.current = res.data.list
       }, ({response})=>{
-        console.log(response)
+        
       })
       .catch(err=>{
-        console.log(err)
+        
       })
     }
 

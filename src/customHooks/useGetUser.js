@@ -23,7 +23,9 @@ export const useGetUser = () =>{
             setUser(res.data.user)
             sessionStorage.setItem(`${id}`, JSON.stringify(res.data.user))
         })
-        .catch(err=>console.log(err))
+        .catch(err=>{
+                
+        })
     }
 
     const getuser = (id) =>{

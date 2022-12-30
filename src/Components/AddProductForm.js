@@ -83,16 +83,13 @@ const AddProductForm = () => {
             'Content-Type': 'multipart/form-data',
           }})
         .then(res=>{
-            console.log(res)
             setSpin(false)
             alert(res.data.message)
         }, ({response})=>{
-            console.log(response.data)
             setSpin(false)
             alert(response.data.message)
         })
         .catch(({response})=>{
-            console.log(response)
             setSpin(false)
         })
     }

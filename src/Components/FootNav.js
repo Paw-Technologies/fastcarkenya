@@ -22,7 +22,7 @@ const FootNav = () => {
         </div>
         <div>
            <button className='iconBtn1' name='/dashboard/messages'
-                onClick={()=>handleClick("/dashboard/messages")}
+                onClick={()=>handleClick("/dashboard/messages/chatlist")}
             >
                 <MdOutlineMessage />
             </button> 

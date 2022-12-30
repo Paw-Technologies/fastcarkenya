@@ -12,8 +12,6 @@ const MsgInputBar = (props) => {
     sender: rtUserId()
   })
 
-  // console.log(props.chat)
-
   const seller = () => {
     if(typeof(props.chat.seller) !== 'undefined'){
       return props.chat.seller
@@ -26,7 +24,6 @@ const MsgInputBar = (props) => {
 
   const sendMessage = async() => {
     if(newMsg.message.length < 1) return alert("Message can't be empty")
-    console.log('wait')
     await api2.post('/sendmessage', {
       chatId: typeof(props.chat) === 'undefined' ? localStorage.getItem("chatId") : props.chat._id,
       buyer: props.chat.buyer ? props.chat.buyer : rtUserId(),
@@ -38,13 +35,11 @@ const MsgInputBar = (props) => {
         localStorage.setItem('chatId', res.data.chatId)
       }
       setNewMsg(p=>({...p, message: ""}))
-      console.log('sent')
     }, (err)=>{
-      console.log(err)
-      console.log('sent')
+
     })
     .catch(({response})=>{
-      console.log(response)
+        
     })
     
   }

@@ -110,13 +110,11 @@ const AuthPage = (props) => {
                 navigate('/')
             }
         }, ({response})=>{
-            console.log("this ", response)
             setMsg(response.data.message)
             setSpin(false)
             
         })
         .catch(err=>{
-            console.log("this, ", err)
             setMsg(err.message)
             setSpin(false)
         })

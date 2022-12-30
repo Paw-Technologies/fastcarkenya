@@ -3,9 +3,40 @@
     p {
         font-weight: light;
     }
+    .h1 {
+        font-size: 2em !important;
+    }
     nav {
       height: 4em !important;
       line-height: 4em !important;
+    }
+    /* open chat */
+    .chatOpen {
+        width: 100% !important;
+        height: 80vh !important;
+        overflow: hidden;
+        position: fixed;
+    }
+    .chatHeader {
+        position: sticky;
+        top: 3.8em;
+        z-index: 300;
+    }
+    .messages {
+        top: 4em;
+        height: 80% !important;
+        padding-bottom: 5em;
+    }
+    .message {
+        max-width: 70vw;
+    }
+    .msgInputBar {
+        width: 100% !important;
+        height: 12vh !important;
+        bottom: 5vh !important;
+        display: grid !important;
+        justify-content: flex-start !important;
+        grid-template-rows: 6vh !important;
     }
     /* reviews */
     .reviews {

@@ -32,7 +32,6 @@ const cSlice = createSlice({
     },
     reducers: {
         fetch_events(state, action){
-            console.log(action.payload)
             state.events = [...new Set(action.payload)]
         },
         log_out(state, action){
