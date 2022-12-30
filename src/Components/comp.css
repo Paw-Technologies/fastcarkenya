@@ -291,18 +291,18 @@
 
 /* account form styling */
 .editAccountForm {
+    width: 70%;
     margin-top: 5%;
     height: calc(max-content + 10vh) !important;
     min-width: 45vh;
     max-width: 90vh;
-    width: 70%;
     margin: auto;
     display: grid;
     grid-auto-flow: row;
     gap: 2%;
     background-color: white;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.281);
-    padding-bottom: 4%;
+    padding-bottom: 8vw;
 }
 .editAccountForm .avi {
     width: 30vh !important;
