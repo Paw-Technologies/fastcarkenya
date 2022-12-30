@@ -12,6 +12,7 @@ const Chat = require('../models/Chat');
 const { default: mongoose } = require('mongoose');
 const User = require('../models/userModel');
 const Event = require('../models/Event');
+const Reviews = require('../models/Reviews');
 
 
 const cloudinaryImageUploadMethod = async file => {
@@ -191,14 +192,6 @@ miscServer.post('/editproduct', async(req, res)=>{
             message: `${req.body.field} has been changed`
         })
     })
-    // .then(resp=>{
-    //     console.log("resp", resp)
-    // }, err=>{
-    //     console.log(err)
-    // })
-    // .catch(err=>{
-    //     console.log(err)
-    // })
 })
 
 miscServer.delete('/deleteproduct', async(req, res)=>{
@@ -298,6 +291,77 @@ miscServer.post('/sendmessage', async(req, res)=>{
         console.log("consoleed: ",error)
     }
     
+})
+
+
+miscServer.post('/rate', async(req, res)=>{
+    let riw = ['one', 'two', 'three', 'four', 'five']
+    let rate = {}
+    let { oneStar, twoStar, threeStar, fourStar, fiveStar } = req.body;
+    let list = [oneStar, twoStar, threeStar, fourStar, fiveStar]
+    
+    let targ = list.filter(val=>typeof(val) !== 'undefined')
+    rate[`${riw[list.indexOf(targ[0])]}Star`] = 1
+
+    
+    let review = await Reviews.find({product: req.body.product})
+    if(review.length < 1){
+        let newReview = new Reviews({
+            product: req.body.product
+        })
+        await newReview.save()
+        .then(()=>{
+            rateQuery()
+        }, err=>{
+            console.log('xyxyx', err.message)
+            res.status(304).json({
+                message: "Please Try again later"
+            })
+        })
+        .catch(err=>{
+            res.status(304).json({
+                message: "Couldn't save, try later"
+            })
+        })
+        return
+    }
+    rateQuery()
+    async function rateQuery(){
+        console.log(rate)
+        await Reviews.findOneAndUpdate({product: req.body.product}, {$push: rate})
+        .then(resp=>{
+            res.status(200).json({
+                message: "Thank You for your response"
+            })
+        }, err=>{
+            res.status(304).json({
+                message: "Try again later"
+            })
+        })
+        .catch(err=>{
+            res.status(304).json({
+                message: "Try again later"
+            })
+        })
+    }
+})
+
+miscServer.get('/getrating', async(req, res)=>{
+    let rating = await Reviews.find({product: req.headers.product})
+
+    //return console.log(rating)
+    if(rating.length > 0){
+        res.status(200).json({
+            rating: getRating(rating[0])
+        })
+    }
+
+    function getRating(doc){
+        let scoreTot = (Number(doc.oneStar.length) * 1) + (Number(doc.twoStar.length) * 2) + 
+            (Number(doc.threeStar.length) * 3) + (Number(doc.fourStar.length) * 4) + (Number(doc.fiveStar.length) * 5);
+        let respTot = doc.oneStar.length + doc.twoStar.length + doc.threeStar.length + doc.fourStar.length + doc.fiveStar.length
+        return (scoreTot/respTot).toFixed(1);
+    } 
 })
 
 module.exports = miscServer;

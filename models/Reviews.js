@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 
 const reviews = new mongoose.Schema({
+    product: {
+        type: String,
+        required: true
+    },
     oneStar: {
         type: []
     },
@@ -23,9 +27,7 @@ const reviews = new mongoose.Schema({
     rating: {
         type: Number
     }, 
-    seller: {
-        type: String,
-        required: true
-    }
 })
+
+module.exports = mongoose.model('Reviews', reviews)
 
