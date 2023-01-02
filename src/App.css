@@ -217,11 +217,11 @@ input, select {
 }
 .linkBtn {
   height: 3em;
-  font-size: 18px;
-  width: max-content;
+  font-size: 1.3vmax;
+  width: max-content !important;
   line-height: 3em;
   color: white;
-  min-width: 100px;
+  /* min-width: 200px; */
   margin: auto;
   background-color: transparent;
   transition: width 0.5s;

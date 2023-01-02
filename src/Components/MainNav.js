@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { FaList, FaPlus } from 'react-icons/fa'
 import { MdEvent, MdOutlineAccountCircle, MdOutlineMessage } from 'react-icons/md'
 import { useSelector } from 'react-redux'
@@ -18,40 +18,52 @@ const MainNav = (props) => {
   const orders = useSelector(state=>state.clientSlice.orders.length)
   const isLoggedIn = useSelector(state=>state.clientSlice.isLoggedIn)
   const [show, setShow] = useState(false)
-
+    const [isTab, setIsTab] = useState(window.innerWidth > 900)
 
   const handleNavigate = (e) =>{
     navigate(e.target.name)
   }
+  let isTabFunc = () => setIsTab(window.innerWidth > 900)
+
+  useLayoutEffect(()=>{
+    window.addEventListener('load', ()=>{
+        isTabFunc()
+    })
+
+    window.addEventListener('resize', ()=>{
+        setIsTab(window.innerWidth > 900)
+    })
+  }, [])
+  
 
   return (
     <nav className='mainNav' >
-      <div>
+      <div className='first'>
         <CompanyIcon />
         <SearchBar />
         <div className='linkBtns'>
           <button className='linkBtn' name='/dashboard/addproduct'
             onClick={handleNavigate}
           >
-            Post Product<FaPlus />
+            {isTab && "Post Product"}<FaPlus />
           </button>
 
           <button className='linkBtn' name='/dashboard/addevent'
             onClick={handleNavigate}
           >
-            Post Event <MdEvent />
+            {isTab && "Post Event"} <MdEvent />
           </button>
 
           <button className='linkBtn' name='/dashboard/messages'
             onClick={handleNavigate}
           >
-            Messages <MdOutlineMessage />
+            {isTab && "Messages"} <MdOutlineMessage />
           </button>
 
           <button className='linkBtn' name={rtToken() ? '/dashboard/account' : "/auth" /**cookie.get('accessTkn')*/}
             onClick={handleNavigate}
           >
-            {rtToken() ? "Account" : "Sign In/Signup"} <MdOutlineAccountCircle />
+            {isTab && (rtToken() ? "Account" : "Sign In/Signup")} <MdOutlineAccountCircle />
           </button>
         </div>
       </div>
