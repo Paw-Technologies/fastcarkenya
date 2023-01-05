@@ -1,5 +1,7 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { json } from 'react-router-dom'
 import api2 from '../apis/api2'
 import { useUserId } from '../customHooks/useUserId'
 import './comp.css'
@@ -11,6 +13,7 @@ const AddProductForm = () => {
     const [spin, setSpin] = useState(false)
     const categories = useSelector(state=>state.clientSlice.categories)
     let formdata = new FormData()
+    const [countries, setCountries] = useState([])
 
     const [product, setProduct] = useState({
         images: [],
@@ -18,7 +21,8 @@ const AddProductForm = () => {
         category: "null",
         brandName: "",
         model: "",
-        location: "",
+        country: "",
+        city: "",
         partNumber: "",
         isUsed: false,
         price: "",
@@ -51,7 +55,8 @@ const AddProductForm = () => {
 
     const [garage, setGarage] = useState({
         name: "",
-        location: "",
+        country: "",
+        city: "",
         contacts: ""
     })
 
@@ -60,7 +65,8 @@ const AddProductForm = () => {
         formdata.append('category', product.category)
         formdata.append('seller', rtUserId())
         formdata.append("description", product.description)
-        formdata.append('location', garage.location)
+        formdata.append('country', garage.country)
+        formdata.append('city', garage.city)
         // formdata.append('imageCover', product.images[0])
         for(let i of product.images){
              formdata.append('images', i)
@@ -105,6 +111,24 @@ const AddProductForm = () => {
     }
 
     const disabled = () => product.category === "null"
+
+    const getCountry = async(value) =>{
+        await axios.get(`https://restcountries.com/v2/name/${value}`)
+        .then(res=>{
+            let newList = []
+            newList.push(res.data[0].name)
+            setCountries(newList)
+        }, ({response})=>{
+            console.log(response.status)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    let countryDatalist = <datalist id='countries'>
+        {countries.map(cntry => <option key={cntry} value={cntry}>{cntry}</option>)}
+    </datalist>
 
   return (
     <form className='addProductForm' onSubmit={sendProduct}>
@@ -290,12 +314,26 @@ const AddProductForm = () => {
                 </select> 
             </div>
             <div>
-                <label>Location</label>
+                <label>Country</label>
                 <input 
                     className='input1'
-                    placeholder='Location'
-                    value={product.location}
-                    onChange={e=>setProduct(p=>({...p, location: e.target.value}))}
+                    placeholder='Country'
+                    value={product.country}
+                    onChange={e=>{
+                        setProduct(p=>({...p, country: e.target.value}))
+                        getCountry(e.target.value)
+                    }}
+                    list="countries"
+                />
+                {countryDatalist}
+            </div>
+            <div>
+                <label>City/Town</label>
+                <input 
+                    className='input1'
+                    placeholder='City/Town'
+                    value={product.city}
+                    onChange={e=>setProduct(p=>({...p, city: e.target.value}))}
                 />
             </div>
         </>}
@@ -311,12 +349,21 @@ const AddProductForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Business Location</label>
+                    <label>Location(Country)</label>
                     <input 
                         className='input1'
-                        placeholder='Where is your garage Located?'
-                        value={garage.location}
-                        onChange={e=>setGarage(p=>({...p, location: e.target.value}))}
+                        placeholder='Country'
+                        value={garage.country}
+                        onChange={e=>setGarage(p=>({...p, country: e.target.value}))}
+                    />
+                </div>
+                <div>
+                    <label>Location(City)</label>
+                    <input 
+                        className='input1'
+                        placeholder='City'
+                        value={garage.city}
+                        onChange={e=>setGarage(p=>({...p, city: e.target.value}))}
                     />
                 </div>
                 <div>

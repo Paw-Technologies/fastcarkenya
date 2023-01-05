@@ -1,12 +1,9 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import Carousel from './Carousel'
-import TagBtn from './TagBtn'
 
 const ShowProduct = (props) => {
   const navigate = useNavigate()
   let product = props.product;
-  
   
   const Tag = (lbl, txt) => <p><b>{lbl}: </b>{txt}</p>
   return (

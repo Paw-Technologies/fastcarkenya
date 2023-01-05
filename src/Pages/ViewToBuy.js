@@ -8,10 +8,13 @@ import './page.css'
 import ReviewList from '../Components/ReviewList'
 import Rate from '../Components/Rate'
 import api2 from '../apis/api2'
+import { useUserId } from '../customHooks/useUserId'
 
 const services = ['GARAGES', 'PAINT/BODY SHOPS', 'WRAP SHOPS']
 const stars = ['⭐', '⭐', '⭐', '⭐', '⭐']
+
 const ViewToBuy = () => {
+    const { rtUserId } = useUserId()
     const navigate = useNavigate()
     const lokeshen = useLocation()
     const [product, setProduct] = useState(null)
@@ -37,6 +40,7 @@ const ViewToBuy = () => {
         }
     }, [])
 
+    console.log(product.transmission)
     useEffect(()=>{
         try {
             if (typeof(lokeshen.state.product) === 'undefined') return navigate('../')
@@ -47,7 +51,6 @@ const ViewToBuy = () => {
         }
     }, [])
 
-    
     if(product === null || typeof(product)==='undefined') return <div style={{width: '100%', height: "90vh"}}>
         <Spinner />
         <h1>Hello world</h1>
@@ -90,7 +93,8 @@ const ViewToBuy = () => {
                         </div>
                     </>}
 
-                    {product.category.includes("CARS FOR SALE") && 
+                    {(product.category.includes("CARS FOR SALE") || 
+                    product.category.includes("PERFORMANCE CARS")) && 
                     <>
                         <div>
                             <p>Engine Size: </p><h2>{product.engineSize}cc</h2>
@@ -98,9 +102,23 @@ const ViewToBuy = () => {
                         <div>
                             <p>Year: </p><h2>{product.year}</h2>
                         </div>
+                        <div>
+                            <p>Transmission: </p><h2>{product.transmission}</h2>
+                        </div>
+                    </>}
+                    {product.category.includes("PERFORMANCE CARS") && <>
+                        <div>
+                            <p>Power Output</p> <h2>{product.powerOutput}hp </h2>
+                        </div>
+                        <div>
+                            <p>Turbo: </p> <h2>{product.currentTurbo}</h2>
+                        </div>
                     </>}
                     <div>
-                        <p>Location: </p><h2>{product.location}</h2>
+                        <p>Country: </p><h2>{product.country}</h2>
+                    </div>
+                    <div>
+                        <p>City: </p><h2>{product.city}</h2>
                     </div>
                 </div>
             </>
@@ -114,19 +132,26 @@ const ViewToBuy = () => {
             <div className='desc'>
                 <em>{product.description}</em>
             </div>
-            <div>
-                <button className='button1' >
-                    Call Seller <MdCall />
-                </button>
-                <button className='button1' onClick={()=>{
-                        if(window.innerWidth > 599) return navigate('/dashboard/messages', {state: {seller: product.seller}})
-                        return navigate('/dashboard/messages/openchat', {state: {seller: product.seller}})
-                }
-                }>
-                    Start a chat <MdChat />
-                </button>
-            </div>
-            <Rate product={product._id} />
+
+            {/* hide the buttons below if the ad is being visited
+             by the seller
+             */}
+            
+            {product.seller !== rtUserId() && <>
+                <div>
+                    <button className='button1' >
+                        Call Seller <MdCall />
+                    </button>
+                    <button className='button1' onClick={()=>{
+                            if(window.innerWidth > 599) return navigate('/dashboard/messages', {state: {seller: product.seller}})
+                            return navigate('/dashboard/messages/openchat', {state: {seller: product.seller}})
+                    }
+                    }>
+                        Start a chat <MdChat />
+                    </button>
+                </div>
+                <Rate product={product._id} />
+            </>}
             {/* {services.includes(product.category) && <>
             <h1 className='h1'>Reviews</h1>
                 <ReviewList />
