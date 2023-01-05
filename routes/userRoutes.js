@@ -26,13 +26,13 @@ router.patch('/updateMyPassword', authController.updatePassword)
 router.get('/me', async(req, res)=>{
     let user = await users.findById(req.headers.id)
     if(user === null){
-        res.json({
+        res.status(404).json({
             message: "Account not found",
             err: true
         })
         return
     }
-    res.json({
+    res.status(200).json({
         data: user
     })
 })

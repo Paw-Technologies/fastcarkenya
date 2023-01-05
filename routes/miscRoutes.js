@@ -79,6 +79,32 @@ miscServer.get('/getmyevents', async(req, res)=>{
     })
 })
   
+miscServer.post('/editaccount', async(req, res, next)=>{
+        let { name, phoneNumber, email, password, passwordConfirm } = req.body
+        // let findUser = await User.findById(req.headers.userid)
+
+        console.log(name, phoneNumber, email, password, passwordConfirm)
+        User.findOneAndUpdate({_id: req.headers.userid}, {$set: {
+            name: name,
+            phoneNumber: phoneNumber,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm
+        }}, (err, doc)=>{
+            if(err){
+                res.status(304).json({
+                    message: err.message
+                })
+            }
+            console.log(doc)
+            res.status(200).json({
+                message: "Changes saved"
+            })
+        })
+    }
+)
+
+
 miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     // save image
     const files = req.files;
@@ -88,52 +114,11 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
         const newPath = await cloudinaryImageUploadMethod(file);
         urls.push(newPath);
     }
-    
-    // save the product
-    let { 
-        brandName, 
-        price,
-        model,
-        name,
-        partNumber,
-        year, 
-        country,
-        description,
-        isUsed,
-        mileage,
-        engineSize,
-        size,
-        ET,
-        cb,
-        pcd,
-        location,
-        contacts,
-        category,
-        seller
-     } = req.body
-    let product = new Product({
-        seller: seller,
-        brandName: brandName,
-        name: name,
-        price: price,
-        model: model,
-        partNumber: partNumber,
-        year: year,
-        country: country,
-        category: category,
-        description: description,
-        isUsed: isUsed,
-        mileage: mileage,
-        engineSize: engineSize,
-        size: size,
-        ET: ET,
-        cb: cb,
-        pcd: pcd,
-        location: location,
-        contacts: contacts,
-        images: urls,
-    })
-    
+
+    let empty = req.body
+    empty['images'] = urls
+    let product = new Product(empty)
+
     await product.save()
     .then(resp=>{
         res.status(200).json({

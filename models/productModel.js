@@ -63,6 +63,18 @@ const productSchema = new mongoose.Schema({
     pcd:  {
         type: String,
     },
+    transmission: {
+        type: String
+    },
+    powerOutput: {
+        type: String
+    },
+    currentTurbo: {
+        type: String
+    },
+    driveTrain: {
+        type: String
+    },
     rating: {
         type: []
     },
@@ -100,6 +112,7 @@ productSchema.index({name: 'text', brandName: 'text',
     cb: 'text',
     pcd: 'text',
     location: 'text',
+    transmission: "text",
 })
 
 // Query middleware
