@@ -605,17 +605,15 @@
     display: flex;
     flex-wrap: wrap;
     background-color: white;
-    justify-content: center;
-    align-items: flex-start;
-    align-content: stretch;
-    align-self: flex-start;
+    justify-content: space-between;
+    align-items: flex-start !important;
     transition: height 2s;
     place-items: top;
 }
 
 /* show product */
 .showProduct {
-    width: 15vw;
+    width: 20vmax;
     height: max-content;
     margin: 1%;
     display: grid;
@@ -645,6 +643,11 @@
 .showProduct .description {
     width: 90%;
     margin: auto;
+}
+.showProduct .description .desc {
+    height: 10vh;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .showProduct .description h2 {
     color: #F62147;
