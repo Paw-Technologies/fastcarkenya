@@ -78,7 +78,9 @@ const productSchema = new mongoose.Schema({
     rating: {
         type: []
     },
-    location: String,
+    location: String, // phase out
+    city: String,
+    country: String,
     name: String,
     contacts:{
         type: String
