@@ -218,6 +218,7 @@ input, select {
 .linkBtn {
   height: 3em;
   font-size: 1.3vmax;
+  min-width: 10vmax;
   width: max-content !important;
   line-height: 3em;
   color: white;

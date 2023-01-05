@@ -7,13 +7,7 @@ const ShowProduct = (props) => {
   const navigate = useNavigate()
   let product = props.product;
   
-  // if(product.category.includes("GARAGES" || "WRAP SHOP" || "PAINT/BODY SHOP")){
-  //   return <div className='showProduct' onClick={()=>{
-  //     navigate('/product', {state: {product: product}})
-  //   }}> 
-      
-  //   </div>
-  // }
+  
   const Tag = (lbl, txt) => <p><b>{lbl}: </b>{txt}</p>
   return (
     <div className='showProduct' onClick={()=>{
@@ -31,11 +25,8 @@ const ShowProduct = (props) => {
           {product.category.includes("CARS") && <>
             {Tag('Engine Size', product.engineSize+"cc")}
             {Tag('Mileage', product.mileage+"Km")}
-            
-            
-            
           </>}
-
+        
           {product.category.includes("PARTS") && <>
             {Tag("")}
           </>}

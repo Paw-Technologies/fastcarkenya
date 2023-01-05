@@ -1,18 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import api from '../apis/api'
+import api2 from '../apis/api2'
 import { useUserId } from '../customHooks/useUserId'
 import './comp.css'
+import Spinner from './Spinner'
 
 const EditAccount = () => {
         const { rtUserId } = useUserId()
     const original = useRef()
+    const [spin, setSpin] = useState(false)
     const [conf, setConf] = useState({change: false, value: ""})
     const [user, setUser] = useState({
         avi: "",
         name: "",
         email: "",
-        phone: "",
+        phoneNumber: "",
         password: "",
     })
     async function getdata(){
@@ -21,7 +24,8 @@ const EditAccount = () => {
                 setUser(p=>({...p,
                     avi: res.data.data.photo,
                     name: res.data.data.name,
-                    email: res.data.data.email
+                    email: res.data.data.email,
+                    phoneNumber: res.data.data.phoneNumber,
                 }))
                 original.current = res.data.data
 
@@ -35,7 +39,18 @@ const EditAccount = () => {
     const [changed, setChanged] = useState(false)
 
     const submit = async() =>{
-        
+        // e.preventDefault()
+        setSpin(true)
+        await api2.post('/editaccount', user, {headers: {userid: rtUserId()}})
+        .then(res=>{
+            console.log(res.data)
+            setSpin(false)
+        }, ({response})=>{
+            alert(response)
+        })
+        .catch(({response})=>{
+            alert(response)
+        })
     }
 
     useEffect(()=>{
@@ -47,13 +62,14 @@ const EditAccount = () => {
         
     }, [])
 
-    //let globPath = "http://localhost:5000/"
-    let globPath = "https://fastcar.onrender.com/"
+    //let globPath = "http://localhost:5000"
+    let globPath = "https://fastcar.onrender.com"
     
   return (
     <form className='editAccountForm' onSubmit={changed ? submit : null}>
+        {spin && <Spinner />}
         <div className='avi'>
-            <img src={globPath+user.avi} alt='avi' />
+            <img src={globPath+"/"+user.avi} alt='avi' />
         </div>
         <input className='input1' 
             value={user.name}
@@ -69,8 +85,8 @@ const EditAccount = () => {
         />
         <input className='input1' 
             placeholder='phone'
-            value={user.phone ? user.phone : "Add Phone Number"}
-            onChange={e=>setUser(p=>({...p, phone: e.target.value}))}
+            value={user.phoneNumber ? user.phoneNumber : "Add Phone Number"}
+            onChange={e=>setUser(p=>({...p, phoneNumber: e.target.value}))}
             disabled={changed ? "" : "disabled"}
         />
         <input className='input1' 
@@ -91,6 +107,7 @@ const EditAccount = () => {
         <button className='button1' type='button' onClick={()=>{
             if(changed){
                 // submit
+                submit()
             }else{
                 setChanged(!changed)
             }

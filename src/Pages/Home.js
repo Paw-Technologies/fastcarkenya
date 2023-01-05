@@ -10,6 +10,7 @@ import { Cookies, useCookies } from 'react-cookie'
 import { add_to_global_products } from '../Store.js/store'
 import TopShops from '../Components/TopShops'
 import Allevents from '../Components/Allevents'
+import TopPerfCars from './TopPerfCars'
 
 const Home = () => {
   const cookie = new Cookies()
@@ -42,6 +43,8 @@ const Home = () => {
         <TopProducts />
         <h1 className='h1'>Top Shops</h1>
         <TopShops />
+        <h1 className='h1'>Top Performance Cars</h1>
+        <TopPerfCars />
         <h1 className='h1'>Automotive Events</h1>
         <Allevents />
         <Footer />

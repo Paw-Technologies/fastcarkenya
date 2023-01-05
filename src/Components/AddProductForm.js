@@ -31,7 +31,11 @@ const AddProductForm = () => {
         mileage: "",
         engineSize: "",
         partNo: "",
-        description: ""
+        description: "",
+        transmission: "",
+        powerOutput: "",
+        currentTurbo: "",
+        driveTrain: "",
     })
 
     const getIsService = () => {
@@ -77,6 +81,12 @@ const AddProductForm = () => {
             formdata.append('mileage', product.mileage)
             formdata.append('year', product.year)
             formdata.append('engineSize', product.engineSize)
+            if(product.category.includes("PERFORMANCE CARS")){
+                formdata.append('transmission', product.transmission)
+                formdata.append('powerOutput', product.powerOutput)
+                formdata.append('currentTurbo', product.currentTurbo)
+                formdata.append('driveTrain', product.driveTrain)
+            }
         }
         setSpin(true)
         await api2.post("/postproduct", formdata,{Headers: {
@@ -134,38 +144,100 @@ const AddProductForm = () => {
                     onChange={e=>setProduct(p=>({...p, model: e.target.value}))}
                 />
             </div>
-
+            
+            <div>
+                <label>Price</label>
+                <input
+                    className='input1'
+                    placeholder='Enter amount'
+                    value={product.price}
+                    onChange={e=>setProduct(p=>({...p, price: e.target.value}))}
+                />
+            </div>
+            
             {product.category.includes("CARS") && 
             <> 
-            <div>
-                <label>Year</label>
-                <input 
-                    className='input1'
-                    placeholder='Year'
-                    value={product.year}
-                    onChange={e=>setProduct(p=>({...p, year: e.target.value}))}
-                />
-            </div>
-            <div>
-                <label>Engine Size (cc)</label>
-                <input 
-                    className='input1'
-                    placeholder='Engine size(in cc)'
-                    value={product.engineSize}
-                    onChange={e=>setProduct(p=>({...p, engineSize: e.target.value}))}
-                />
-            </div>
-            <div>
-                <label>Mileage</label>
-                <input 
-                    className='input1'
-                    placeholder='Mileage'
-                    type='number'
-                    value={product.mileage}
-                    onChange={e=>setProduct(p=>({...p, mileage: e.target.value}))}
-                />
-            </div>
-            </>}
+                <div>
+                    <label>Year</label>
+                    <input 
+                        className='input1'
+                        placeholder='Year'
+                        value={product.year}
+                        onChange={e=>setProduct(p=>({...p, year: e.target.value}))}
+                    />
+                </div>
+                <div>
+                    <label>Engine Size (cc)</label>
+                    <input 
+                        className='input1'
+                        placeholder='Engine size(in cc)'
+                        value={product.engineSize}
+                        onBlur={e=>{
+                            if(product.category.includes("PERFORMANCE CARS")){
+                                if(e.target.value < 2000) return e.target.style.outline = 
+                                "2px solid red"
+                            }
+                            return e.target.style.outline = "transparent"
+                        }}
+                        onChange={e=>{
+                            setProduct(p=>({...p, engineSize: e.target.value}))
+                        }}
+                    />
+                </div>
+                <div>
+                    <label>Mileage</label>
+                    <input 
+                        className='input1'
+                        placeholder='Mileage'
+                        type='number'
+                        value={product.mileage}
+                        onChange={e=>setProduct(p=>({...p, mileage: e.target.value}))}
+                    />
+                </div>
+                {product.category.includes("PERFORMANCE CARS") && 
+                <>
+                    <div>
+                        <label>Transmission</label>
+                        <select required value={product.transmission} onChange={e=>setProduct(p=>({...p, transmission: e.target.value}))}>
+                            <option value='Manual'>Manual</option>
+                            <option value='Automatic'>Automatic</option>
+                            <option value='Semi-Automatic'>Semi-Automatic</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Power Output</label>
+                        <input 
+                            required
+                            className='input1'
+                            placeholder='Power Output (Horse Power)'
+                            type="number"
+                            value={product.powerOutput}
+                            onChange={e=>setProduct(p=>({...p, powerOutput: e.target.value}))}
+                        />
+                    </div>
+                    <div>
+                        <label>Current Turbo</label>
+                        <input 
+                            className='input1'
+                            placeholder='Current Turbo/Turbos'
+                            value={product.currentTurbo}
+                            onChange={e=>setProduct(p=>({...p, currentTurbo: e.target.value}))}
+                        />
+                    </div>
+                    <div>
+                        <label>Drivetrain</label>
+                        <select required value={product.driveTrain} onChange={e=>setProduct(
+                            p=>({...p, driveTrain: e.target.value})
+                        )}>
+                            <option value='AWD'>All Wheel Drive</option>
+                            <option value='RWD'>Rear Wheel Drive</option>
+                            <option value='FWD'>Front Wheel Drive</option>
+                        </select>
+                    </div>
+                </>
+                }
+            </>
+            }
             
 
             {(product.category.includes("WHEELS") || product.category.includes("TYRES")) && 
@@ -226,16 +298,6 @@ const AddProductForm = () => {
                     onChange={e=>setProduct(p=>({...p, location: e.target.value}))}
                 />
             </div>
-            
-            <div>
-                <label>Price</label>
-                <input
-                    className='input1'
-                    placeholder='Enter amount'
-                    value={product.price}
-                    onChange={e=>setProduct(p=>({...p, price: e.target.value}))}
-                />
-            </div>
         </>}
 
         {getIsService() && <>
@@ -270,7 +332,9 @@ const AddProductForm = () => {
         <div>
             <label>Description</label>
             <textarea value={product.description}
-                placeholder="Anything else you want buyers to know?"
+                placeholder={product.category.includes("PERFORMANCE CARS") ?  
+                 "Describe any other modifications "
+                :"Anything else you want buyers to know?"}
                 onChange={e=>setProduct(p=>({...p, description: e.target.value}))}
             />
         </div>

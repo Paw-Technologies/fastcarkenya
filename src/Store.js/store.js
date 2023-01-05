@@ -9,6 +9,7 @@ import tyres from '../images/Tyres.png'
 import acc from '../images/acc.png'
 import wrap from '../images/wrap.png'
 import batt from '../images/batt.png'
+import perf from '../images/perfCarsBg.png'
 import api2 from "../apis/api2"
 
 const categories = [
@@ -20,7 +21,8 @@ const categories = [
     {n: "PAINT/BODY SHOP", i: paint},
     {n: "WRAP SHOPS", i: wrap},
     {n: "ACCESSORIES", i: acc},
-    {n: "BATTERIES", i: batt}
+    {n: "BATTERIES", i: batt},
+    {n: "PERFORMANCE CARS", i: perf}
 ]
 
 
