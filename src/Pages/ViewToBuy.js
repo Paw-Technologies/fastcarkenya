@@ -40,7 +40,6 @@ const ViewToBuy = () => {
         }
     }, [])
 
-    console.log(product.transmission)
     useEffect(()=>{
         try {
             if (typeof(lokeshen.state.product) === 'undefined') return navigate('../')
@@ -55,6 +54,9 @@ const ViewToBuy = () => {
         <Spinner />
         <h1>Hello world</h1>
     </div> 
+    try {
+        
+    
   return (
     <div className='page' id='viewToBuy' >
         <ImageViewer images={product.images} />  
@@ -160,6 +162,9 @@ const ViewToBuy = () => {
         </section>
     </div>
   )
+    } catch (error) {
+        return <Spinner />
+    }
 }
 
 export default ViewToBuy
