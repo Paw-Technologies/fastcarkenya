@@ -22,10 +22,8 @@ const cloudinaryImageUploadMethod = async file => {
             public_id: `${Date.now() + file.originalname}`
         }, (err, res)=>{
             if(err){
-                console.log("kuna shida mahali")
                 reject(err)
             }
-            console.log("a url here ", res.url)
             resolve(res.url)
         } ).end(file.buffer)
     })
@@ -38,7 +36,6 @@ miscServer.post('/addevent', upload.single('image'), async(req, res)=>{
     let { location, date, description, title } = req.body
     let imageUrl = await cloudinaryImageUploadMethod(file)
     
-    console.log(req.headers)
     let newEvent = new Event({
         image: imageUrl,
         title: title,
@@ -83,7 +80,6 @@ miscServer.post('/editaccount', async(req, res, next)=>{
         let { name, phoneNumber, email, password, passwordConfirm } = req.body
         // let findUser = await User.findById(req.headers.userid)
 
-        console.log(name, phoneNumber, email, password, passwordConfirm)
         User.findOneAndUpdate({_id: req.headers.userid}, {$set: {
             name: name,
             phoneNumber: phoneNumber,
@@ -96,7 +92,6 @@ miscServer.post('/editaccount', async(req, res, next)=>{
                     message: err.message
                 })
             }
-            console.log(doc)
             res.status(200).json({
                 message: "Changes saved"
             })
@@ -128,7 +123,6 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
             data: resp
         })
     }, err=>{
-        console.log(err)
         res.status(400).json({
             data: {
                 message: "Error in adding Product, try again later"
@@ -136,7 +130,6 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
         })
     })
     .catch(err=>{
-        console.log(err)
         res.status(400).json({
             data: {
                 message: "Error in adding product, try again later"
@@ -149,7 +142,6 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
 miscServer.get('/myproducts', async(req, res)=>{
     let userProducts = await Product.find({seller: req.headers.userid})
-
     if(userProducts.length < 1) return res.status(404).json({
         message: "You Haven't added any products",
     })
@@ -164,7 +156,6 @@ miscServer.post('/editproduct', async(req, res)=>{
     let update = {}
     update[ req.body.field ] = req.body.value
 
-    console.log(req.header.prodId)
     
     Product.findByIdAndUpdate(req.body.prodId, {$set: update}, (err, doc)=>{
         if(err){
@@ -204,14 +195,12 @@ miscServer.get('/getuser', async(req, res)=>{
             user: user
         })
     }
-    console.log(user)
 })
 
 
 miscServer.post('/find', async(req, res)=>{
     Product.find({$text: {$search: req.body.term}}, (err, prod)=>{
         if(err){
-            console.log(err)
             return
         }
         res.status(200).json({
@@ -236,7 +225,6 @@ miscServer.post('/sendmessage', async(req, res)=>{
         let thischat = await Chat.find({_id: req.body.chatId})
         
         if(thischat.length < 1){
-            console.log("is there")
             let newChat = new Chat({
                 buyer: req.body.buyer,
                 seller: req.body.seller,
@@ -250,7 +238,6 @@ miscServer.post('/sendmessage', async(req, res)=>{
                 })
             })
             .catch(err=>{
-                console.log("xmx", err)
             })
             return
         }
@@ -273,7 +260,6 @@ miscServer.post('/sendmessage', async(req, res)=>{
         })
 
     } catch (error) {
-        console.log("consoleed: ",error)
     }
     
 })
@@ -298,7 +284,6 @@ miscServer.post('/rate', async(req, res)=>{
         .then(()=>{
             rateQuery()
         }, err=>{
-            console.log('xyxyx', err.message)
             res.status(304).json({
                 message: "Please Try again later"
             })
@@ -312,7 +297,6 @@ miscServer.post('/rate', async(req, res)=>{
     }
     rateQuery()
     async function rateQuery(){
-        console.log(rate)
         await Reviews.findOneAndUpdate({product: req.body.product}, {$push: rate})
         .then(resp=>{
             res.status(200).json({
@@ -334,7 +318,6 @@ miscServer.post('/rate', async(req, res)=>{
 miscServer.get('/getrating', async(req, res)=>{
     let rating = await Reviews.find({product: req.headers.product})
 
-    //return console.log(rating)
     if(rating.length > 0){
         res.status(200).json({
             rating: getRating(rating[0])

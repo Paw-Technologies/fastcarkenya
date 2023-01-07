@@ -33,7 +33,6 @@ exports.uploadProductImages = upload.fields(
     ]
 );
 exports.resizeProductImages = catchAsync(async (req, res, next) => {
-    console.log("here are .." , req.files.images);
     if (!req.files.imageCover || !req.files.images) return next()
 
     // 1) Cover Image
@@ -60,7 +59,6 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
             req.body.images.push(filename)
         }));
 
-    // console.log(req.body)
     next()
 });
 
