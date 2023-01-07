@@ -47,98 +47,53 @@
 }
 
 /* chatopen styling */
-
-.chatOpen {
+.chatScreen {
     width: 100%;
-    height: 90vh;
+    height: 100%;
     display: grid;
     grid-auto-flow: row;
-    top: 0;
-    grid-template-rows: 7vh 75vh max-content;
-    background-color: #ffffff;
+    grid-template-rows: max-content 80% 10%;
 }
-.chatOpen .messages {
+.chatScreen .chatBar {
+    width: 100%;
+    height: 3em !important;
+    line-height: 3em;
+    z-index: 300;
+    box-shadow: none;
+    color: white;
+    text-align: left;
+    text-indent: 5%;
+    background-color: #f62147;
+}
+.chatBar h2 {
+    font-weight: lighter;
+}
+.messageList {
     width: 95%;
     height: 100%;
-    overflow: auto;
-    background-color: #f7f3f3;
-    margin-left: auto;
-    margin-right: auto;
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-rows: max-content;
-    gap: 2%;
-    color: #f08294;
+    background-color: #ffe7ec;
+    margin: auto;
 }
-.message {
-    width: max-content;
-    height: max-content;
-    min-width: 10em;
-    min-height: 3em;
-    text-align: left;
-    border-radius: 10px;
-    color: white;
-    padding: 2%;
-    background-color: #a1a1a1;
-}
-.chatList .divH1 {
-        height: 3em;
-        line-height: 3em;
-        text-align: left;
-        text-indent: 10%;
-        position: sticky;
-        top: 0 !important;
-        background-color: white !important;
-        z-index: 300;
-}
-.chatList div {
-        top: 3%;
-        display: grid;
-        grid-auto-flow: row;
-        grid-auto-rows: max-content;
-        gap: 1.8em;
-        height: inherit;
-}
-.chatHeader {
+.messageInputBar {
     width: 100%;
-    height: 3em;
-    background-color: #ff264a;
-    line-height: 3em;
-    text-align: justify;
-    color: white;
-    text-indent: 3%;
+    height: 5em;
+    display: grid;
+    background-color: #f62147;
 }
-.msgInputBar {
-    width: 70%;
-    height: 4em;
-    line-height: 4em;
-    justify-content: center;
+.messageInputBar div {
+    width: 90%;
+    margin: auto;
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 90%;
-    grid-template-rows: none;
-    justify-content: flex-start;
-    position: fixed;
-    gap: 0;
-    bottom: 0;
-    background-color: rgb(255, 38, 74);
 }
-.msgInputBar input {
-    margin: auto;
-}
-.msgInputBar button {
-    width: 40px;
-    height: 40px;
-    font-size: 36px;
-    color: white;
-    margin: auto;
-    margin-left: ;
+.messageInputBar button {
+    width: 3.5vmax;
+    height: 3vmax;
+    font-size: 3vmax;
     background-color: transparent;
+    color: white;
 }
-.msgInputBar button:active {
-    color: rgb(201, 4, 37);
-}
-
 /* edit product */
 .EditProductMajor {
     width: 25em;
@@ -604,7 +559,7 @@
     margin-right: auto;
     display: flex;
     flex-wrap: wrap;
-    background-color: white;
+    background-color: #fbfcfd;
     justify-content: space-between;
     align-items: flex-start !important;
     transition: height 2s;

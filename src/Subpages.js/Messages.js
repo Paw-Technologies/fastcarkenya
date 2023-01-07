@@ -1,69 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './sub.css'
 import ConversationTitle from '../Components/ConvListItem'
-import MsgInputBar from '../Components/MsgInputBar'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import ChatOpen from '../Components/ChatOpen'
-import api2 from '../apis/api2'
-import { useUserId } from '../customHooks/useUserId'
+import { useLocation } from 'react-router-dom'
+import api2, { base } from '../apis/api2'
+import socketIO from 'socket.io-client'
+import ChatScreen from '../Components/ChatScreen'
+import ChatList from '../Components/ChatList'
+
 
 const Messages = () => {
-  const lokeshen = useLocation()
-  const [currentChat, setCurrentChat] = useState("")
-  const [seller, setSeller] = useState("")
-  const [chats, setChats] = useState([])
-  const { rtUserId } = useUserId()
+    const socket = useRef()
+    const lokeshen = useLocation()
+    const [currentChat, setCurrChat] = useState()
 
-  
-  useEffect(()=>{
-    async function fetchChats(){
-      await api2.get('/getchats', {headers: {userid: rtUserId()}})
-      .then(res=>{
-        setChats(res.data.chats)
-      }, err=>{
-        
-      })
-      .catch(err=>{
+    useEffect(()=>{
+        // socket.current = socketIO.connect(base);
+    }, [])
 
-      })
-    }
-
-    fetchChats()
-  }, [chats, currentChat])
-
-  const ChatList = <>
-    <h1 className='divH1'>Messages</h1>
-      <div>
-          {chats.map(chat=><ConversationTitle 
-            key={chat._id}
-            chat={chat}
-            setChat={setCurrentChat}
-          />)}
-      </div>
-  </>
-
-  if(window.innerWidth < 600) return(
-    <div className='subPage' id='messages'>
-      {lokeshen.pathname.includes('/chatlist') && ChatList}
-      {lokeshen.pathname.includes('/openchat') && <ChatOpen chat={currentChat} />}
-      {/* <Routes>
-        <Route exact path={'/dashboard/messages'} element={ChatList} />
-        <Route exact path={'/chat'} element={<ChatOpen />} />
-      </Routes> */}
+    if(window.innerWidth < 800) return <div>
+        {lokeshen.pathname.includes('chatlist') && <ChatList />}
+        {lokeshen.pathname.includes("openchat") && <ChatScreen />}
     </div>
-  )
-
-  return (
-    <div className='subPage' id='messages'>
-      <section className='chatList'>
-        {ChatList}
-      </section>
-
-      <section>
-        <ChatOpen chat={currentChat} />
-      </section>
-    </div>
-  )
+    return (
+        <div className='sub' id='messages'>
+            <section>
+                <ChatList />
+            </section>
+            <section>
+                <ChatScreen socket={socket} />
+            </section>
+        </div>
+    )
 }
 
 export default Messages

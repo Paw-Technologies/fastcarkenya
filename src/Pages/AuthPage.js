@@ -1,17 +1,17 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import api from '../apis/api'
+import ForgotPassword from '../Components/ForgotPassword'
 import Spinner from '../Components/Spinner'
 import { useToken } from '../customHooks/useToken'
+import useUserData from '../customHooks/useUserData'
 import { useUserId } from '../customHooks/useUserId'
 import illust from '../images/carxray.png'
 import { log_in } from '../Store.js/store'
 
 const AuthPage = (props) => {
-    const {token, setToken} = useToken()
     const {userId, setUserId} = useUserId()
     const navigate = useNavigate()
     const lokeshen = useLocation()
@@ -19,12 +19,16 @@ const AuthPage = (props) => {
     let isLog = useSelector(state=>state.clientSlice.isLoggedIn)
     const dispatch = useDispatch()
     const [isLoggedIn, setIsLogIn] = useState(false)
+    const [isForgPass, setIsFog] = useState(false)
     const [spin, setSpin] = useState(false)
     const [message, setMsg] = useState("")
+    const [ userDetails, setUserData ] = useUserData()
     const [details, setDet] = useState({
         name: "",
         email: "",
         phone: "",
+        country: "",
+        city: "",
         password: "",
         passwordConfirm: ""
     })
@@ -69,9 +73,14 @@ const AuthPage = (props) => {
         .then(res=>{
             setSpin(false)
 
-            setToken(res.data.token)
             setUserId(res.data.data.user._id)
-
+            console.log(res.data.data.user)
+            setUserData('t', res.data.token)
+            setUserData('n', res.data.data.user.name)
+            setUserData('e', res.data.data.user.email)
+            setUserData('i', res.data.data.user.id)
+            setUserData('p', res.data.data.user.phone)
+            
             dispatch(log_in())
             if(!lokeshen.pathname.includes("auth")){
                 navigate(lokeshen.pathname)
@@ -99,9 +108,13 @@ const AuthPage = (props) => {
             cookie.set('userId', `${res.data.data.user._id}`, {path: "*"})
             cookie.set('isLoggedIn', true, {path: "*"})
             
-            setToken(res.data.token)
             setUserId(res.data.data.user._id)
             
+            console.log(res.data.data)
+            setUserData('t', res.data.token)
+            setUserData('n', res.data)
+
+            return
 
             dispatch(log_in())
             if(!lokeshen.pathname.includes("auth")){
@@ -120,7 +133,9 @@ const AuthPage = (props) => {
         })
     }
 
-  return (
+    if(isForgPass) return <ForgotPassword />
+    
+    return (
     <div className='page' id='authPage'>
       <form className='authForm' onSubmit={isLoggedIn ? handleLogin : handleSignup}>
         <span style={{display: 'grid', gridAutoFlow: 'column'}}>
@@ -149,6 +164,20 @@ const AuthPage = (props) => {
             value={details.phone}
             onChange={input}
         />}
+        {!isLoggedIn && <input className='input1' 
+            type='text'
+            placeholder='Country'
+            name='country'
+            value={details.country}
+            onChange={e=>setDet(p=>({...p, country: e.target.value}))}
+        />}
+        {!isLoggedIn && <input className='input1' 
+            type='text'
+            placeholder='City'
+            name='city'
+            value={details.city}
+            onChange={e=>setDet(p=>({...p, city: e.target.value}))}
+        />}
         <input className='input1' 
             type='password'
             placeholder='Password'
@@ -164,9 +193,12 @@ const AuthPage = (props) => {
             onChange={input}
         />}
         {!isLoggedIn && <p>By Clicking Sign Up you agree to our <a href='/termsandcondition'>terms and conditions</a></p>}
-        <button className='button1'
+        
 
-        >
+        
+        <button className='button1'
+            type='submit'
+        >  
             {isLoggedIn ? "Login" : "Sign Up"}
         </button>
         <button className='button1'
@@ -176,6 +208,9 @@ const AuthPage = (props) => {
             {isLoggedIn ? "Dont have an account, signup Instead?" : 
             "Have an account login instead?"}
         </button>
+        <button className='button1'
+            onClick={()=>setIsFog(true)}
+        >Forgot your password?</button>
       </form>
 
         {window.innerWidth > 600 &&<div className='illust'>
