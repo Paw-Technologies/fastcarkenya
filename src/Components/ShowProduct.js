@@ -15,7 +15,7 @@ const ShowProduct = (props) => {
         <h2>KSh.{product.price}</h2>
         <h3>{product.brandName}</h3>
         <h4>Model: {product.model}</h4>
-        <p className='desc'>{product.description}</p>
+        {/* <p className='desc'>{product.description}</p>
         <div className='tags'>
           <p><b>year: </b>{product.year}</p>
 
@@ -39,7 +39,7 @@ const ShowProduct = (props) => {
           )&& <>
             {Tag("Size", product.size)}
           </>}
-        </div>
+        </div> */}
 
       </div>
     </div>
