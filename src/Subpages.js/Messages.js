@@ -9,12 +9,20 @@ import ChatList from '../Components/ChatList'
 
 
 const Messages = () => {
-    const socket = useRef()
+    let [socket, setSocket] = useState(socketIO.connect(base));
     const lokeshen = useLocation()
-    const [currentChat, setCurrChat] = useState()
+    const [currentChat, setCurrChat] = useState({
+        seller: "",
+        buyer: "",
+        
+    })
 
     useEffect(()=>{
-        // socket.current = socketIO.connect(base);
+        try {
+            setCurrChat()
+        } catch (error) {
+            
+        }
     }, [])
 
     if(window.innerWidth < 800) return <div>
@@ -27,7 +35,9 @@ const Messages = () => {
                 <ChatList />
             </section>
             <section>
-                <ChatScreen socket={socket} />
+                <ChatScreen socket={socket} 
+                    currentChat={currentChat}
+                />
             </section>
         </div>
     )

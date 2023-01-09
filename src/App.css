@@ -117,6 +117,17 @@ footer a {
   display: grid;
   grid-auto-flow: column;
 }
+footer h4 {
+    width: max-content;
+    height: 3em;
+    line-height: 3em;
+    display: grid;
+    grid-auto-flow: column;
+    margin: auto;
+}
+footer h4 *{
+    margin: auto;
+}
 footer a *:nth-child(1) {
   margin-top: auto;
   margin-bottom: auto;
@@ -219,6 +230,8 @@ input, select {
   height: 3em;
   font-size: 1.3vmax;
   min-width: 10vmax;
+  display: grid;
+  grid-auto-flow: column;
   width: max-content !important;
   line-height: 3em;
   color: white;
@@ -228,6 +241,9 @@ input, select {
   transition: width 0.5s;
   border: transparent;
   border-bottom: 0.5px solid #ff5070;
+}
+.linkBtn * {
+    margin: auto;
 }
 
 .linkBtn:active {
