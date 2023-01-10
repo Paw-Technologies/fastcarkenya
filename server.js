@@ -13,6 +13,7 @@ process.on("uncaughtException", (err) => {
 
 dotenv.config({ path: "./config.env" });
 const app = require("./app");
+const { addMessage } = require("./controllers/ChatController");
 
 // Database Configurations
 const DB = process.env.DATABASE.replace(
@@ -42,11 +43,15 @@ const socketIO = require('socket.io')(server, {
     }
 })
 
-
+// chat management
 socketIO.on('connection', (socket) => {
     console.log('connected')
-    socket.on('message', (data)=>{
-        console.log("this ", data)
+
+    socket.on('message', async(data)=>{
+        let add = await addMessage(data, socket)
+        if(add === true){
+            socket.emit('responded', {seller: data.seller, buyer: data.buyer})
+        }
     })
 })
 
