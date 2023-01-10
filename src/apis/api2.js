@@ -12,7 +12,8 @@ const api2  = axios.create({
 //     //baseURL: "http://localhost:5000/api
 //     baseURL: "https://fastcar.onrender.com/api"
 // })
-export const base = "http://localhost:5000"
+// export const base = "http://localhost:5000"
+export const base = 'https://fastcar.onrender.com/api'
 
 export default api2
     

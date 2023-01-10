@@ -30,9 +30,16 @@ const categories = [
 const cSlice = createSlice({
     name: "client",
     initialState: { globalProducts: [], userProducts: [], userId: "", searchTerm: "", isLoggedIn: false, orders: [],
-     globalEvents: [], userEvents: [] , categories: categories, events: []
+     globalEvents: [], userEvents: [] , categories: categories, events: [], 
+     currentChat: {seller: "", buyer: "", messages: []}, chats: []
     },
     reducers: {
+        set_chats(state, action){
+            state.chats = [...new Set(action.payload)]
+        },
+        set_curr_chat(state, action){
+            state.currentChat = action.payload
+        },
         fetch_events(state, action){
             state.events = [...new Set(action.payload)]
         },
@@ -73,7 +80,9 @@ export const {
     set_global_events, 
     set_user_events,
     log_out,
-    fetch_events
+    fetch_events,
+    set_curr_chat,
+    set_chats
  } = cSlice.actions;
 
 let clientSlice = cSlice.reducer

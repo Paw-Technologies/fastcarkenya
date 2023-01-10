@@ -3,15 +3,16 @@ import ChatBar from './ChatBar'
 import MessageInputBar from './MessageInputBar'
 import MessageList from './MessageList'
 import './comp.css'
+import useUserData from '../customHooks/useUserData'
 
-const ChatScreen = ({socket, currentChat}) => {
-    
+const ChatScreen = ({socket}) => {
+    const [userDetails, setUserData] = useUserData()
 
     return (
         <div className='chatScreen'>
             <ChatBar />
             <MessageList />
-            <MessageInputBar />
+            <MessageInputBar socket={socket} />
         </div>
     )
 }

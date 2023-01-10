@@ -1,5 +1,30 @@
 
 
+.chatList {
+    width: 90%;
+    height: inherit;
+    margin: auto;
+    text-align: left;
+    
+}
+.chatListing {
+    width: 100%;
+    height: 5em;
+    display: grid;
+    grid-auto-flow: row;
+    background-color: white;
+}
+
+.messageBubble {
+    max-width: 50%;
+    min-height: 5vmax;
+    max-height: max-content;
+    min-width: 5vmax;
+    text-align: left;
+    margin: 1%;
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.205);
+}
 /* myevents */
 .myevents {
     width: 100%;
@@ -49,7 +74,7 @@
 /* chatopen styling */
 .chatScreen {
     width: 100%;
-    height: 100%;
+    height: 90vh;
     display: grid;
     grid-auto-flow: row;
     grid-template-rows: max-content 80% 10%;
@@ -70,9 +95,14 @@
 }
 .messageList {
     width: 95%;
-    height: 100%;
-    background-color: #ffe7ec;
+    height: 70vh;
+    padding-bottom: 5%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f7f7f7;
     margin: auto;
+    display: grid;
+    grid-auto-flow: row;
 }
 .messageInputBar {
     width: 100%;
@@ -560,7 +590,7 @@
     display: flex;
     flex-wrap: wrap;
     background-color: #fbfcfd;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: flex-start !important;
     transition: height 2s;
     place-items: top;
@@ -570,7 +600,7 @@
 .showProduct {
     width: 20vmax;
     height: max-content;
-    margin: 1%;
+    margin: !important;
     display: grid;
     grid-auto-flow: row;
     text-align: left;

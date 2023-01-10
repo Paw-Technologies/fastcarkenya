@@ -7,7 +7,8 @@ export const useGetUser = () =>{
     const get_user = (id)=>{
         // localStorage.removeItem(`${id}`)
         try {
-           return JSON.parse(sessionStorage.getItem(`${id}`)) 
+            if(JSON.parse(sessionStorage.getItem(`${id}`)) === null) throw Error()
+           return (JSON.parse(sessionStorage.getItem(`${id}`)) )
         } catch (error) {
             fetch_user(id)
             return {name: "Waiting...."}
@@ -28,16 +29,11 @@ export const useGetUser = () =>{
         })
     }
 
-    const getuser = (id) =>{
-        setUser(get_user(id))
-        return user
-    }
 
     return {
         user,
         get_user,
         fetch_user,
-        getuser
     }
 }
 
