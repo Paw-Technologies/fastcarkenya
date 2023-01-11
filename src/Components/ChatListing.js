@@ -4,8 +4,10 @@ import  { useGetUser} from '../customHooks/useGetUser'
 import './comp.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { set_curr_chat } from '../Store.js/store'
+import { useNavigate } from 'react-router-dom'
 
 const ChatListing = (props) => {
+    const navigate = useNavigate()
     const recepId = () => props.chat.seller === userDetails.userId ? props.chat.buyer: props.chat.seller
     const [userDetails] = useUserData()
     const dispatch = useDispatch()
@@ -18,6 +20,7 @@ const ChatListing = (props) => {
     
     const setCurr = () =>{
         dispatch(set_curr_chat(props.chat))
+        if(window.innerWidth < 600) navigate('dashboard/openchat')
     }
 
     console.log(props.chat)

@@ -369,7 +369,14 @@ const AddProductForm = () => {
            </>}
            <div>
                 <label>Country</label>
-                <input 
+                <select className='input1' value={product.country} onChange={e=>setProduct(p=>({...p, country: e.target.value}))}>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Tanzania'>Tanzania</option>
+                    <option value='Uganda'>Uganda</option>
+                    <option value='South Africa'>South Africa</option>
+                    <option value='United Arab Emirates'>United Arab Emirates</option>
+                </select>
+                {/* <input 
                     className='input1'
                     placeholder='Country'
                     value={product.country}
@@ -377,9 +384,8 @@ const AddProductForm = () => {
                         setProduct(p=>({...p, country: e.target.value}))
                         getCountry(e.target.value)
                     }}
-                    list="countries"
                 />
-                {countryDatalist}
+                {countryDatalist} */}
             </div>
             <div>
                 <label>City/Town</label>

@@ -172,11 +172,12 @@ const ViewToBuy = () => {
                         Start a chat <MdChat />
                     </button>
                     <button className='button1' onClick={()=>{
-
+                        console.log(product.seller)
                     }}>
-                        <a href={`http://wa.me/${product.seller.phoneNumber}`}>
+                        {/* <a href={`http://wa.me/${product.seller.phoneNumber}`}> */}
                             Chat on Whatsapp
-                        </a></button>
+                        {/* </a> */}
+                        </button>
                 </div>
                 <Rate product={product._id} />
             </>}

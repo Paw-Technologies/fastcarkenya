@@ -12,6 +12,10 @@
     .chatList nav {
         width: 100vw !important;
     }
+    .chatListing {
+        padding: 0 !important;
+        border-bottom: 1px solid rgb(182, 182, 182);
+    }
     nav {
       height: 4em !important;
       line-height: 4em !important;
