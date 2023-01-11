@@ -101,13 +101,53 @@ miscServer.post('/editaccount', async(req, res, next)=>{
 
 const intaSend = require('intasend-node');
 const { getCategoryPricing } = require('../utils/CategoryPricing');
+const Invoices = require('../models/Invoices');
 
 let intasend = new intaSend(process.env.INTAPUB, process.env.INTASEC, true)
 
 let collection = intasend.collection()
 
-miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
+const saveInvoice = async(client, invoiceId, cat) =>{
+    let newInvoice = new Invoices({
+        client: client.userId,
+        invoiceId: invoiceId,
+        category: cat
+    })
+    await newInvoice.save()
+    .then(resp=>{
+
+    })
+    .catch(err=>{
+
+    })
+}
+
+// payment webhook 
+miscServer.post("/paidinvoice", async(req, res)=>{
+    let invoice = await Invoices.findOne({invoiceId: req.body.invoice_id})
+
+    if(invoice !== null){
+        console.log('done well')
+        invoice[0].updateOne({$set: {paid: true}})
+        let x = await User.findOne({_id: invoice.client})
+        if(x !== null){
+            let update = {}
+            update[invoice.client] = invoice.net_amount
+            x.updateOne(update)
+            .then(res=>{
+                console.log('update')
+                console.log('is res', res)
+            })
+            .catch(err=>{
+                console.log('error', err)
+            })
+        }
+    }
+})
+
+miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
+    let userObj = JSON.parse(req.body.seller)
     // check account balance
     let user = await User.findById(JSON.parse(req.body.seller).userId)
     
@@ -121,65 +161,77 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     .then(resp=>{
         if(!resp.p){
             collection
-            .mpesaStkPush({
+            .charge({
                 first_name: 'Derek',
                 last_name: 'Pesa',
-                email: JSON.parse(req.body.seller).email,
+                email: userObj.email,
                 host: "https://fastcar.onrender.com",
-                amount: resp.v,
-                phont_number: JSON.parse(req.body.seller).phoneNumber,
+                amount: 10, //resp.v,
+                currency: 'KES',
+                phone_number: userObj.phoneNumber,
                 api_ref: "just testing"
             })
-            .then(resp=>{
-                console.log(resp)
+            .then(response=>{
+                saveInvoice(userObj.userId, response.id, resp.c)
+                .then(()=> res.status(200).json({
+                        needPay: true,
+                        url: response.url
+                    })
+                )
+                
             })
             .catch(err=>{
-                console.log('this err', err)
+                console.log('this err', err.toString())
+                return
             })
+            return
+        }else{
+            proceed()
         }
     })
-    return
 
 
     //return await Product.deleteMany()
     // save image
     // return console.log(JSON.parse(req.body.seller))
-    const files = req.files;
+    async function proceed (){
+        const files = req.files;
 
-    const urls = [];
-    for (const file of files) {
-        const newPath = await cloudinaryImageUploadMethod(file);
-        urls.push(newPath);
+        const urls = [];
+        for (const file of files) {
+            const newPath = await cloudinaryImageUploadMethod(file);
+            urls.push(newPath);
+        }
+
+        let empty = req.body
+        empty['images'] = urls
+        empty['seller'] = JSON.parse(req.body.seller)
+        let product = new Product(empty)
+
+        await product.save()
+        .then(resp=>{
+            res.status(200).json({
+                status: "Success",
+                message: `${req.body.model || req.body.name || "Product"} Has been added`,
+                productId: resp._id,
+                data: resp
+            })
+        }, err=>{
+            res.status(400).json({
+                data: {
+                    message: "Error in adding Product, try again later"
+                }
+            })
+        })
+        .catch(err=>{
+            res.status(400).json({
+                data: {
+                    message: "Error in adding product, try again later"
+                }
+            })
+        })
     }
-
-    let empty = req.body
-    empty['images'] = urls
-    empty['seller'] = JSON.parse(req.body.seller)
-    let product = new Product(empty)
-
-    await product.save()
-    .then(resp=>{
-        res.status(200).json({
-            status: "Success",
-            message: `${req.body.model || req.body.name || "Product"} Has been added`,
-            productId: resp._id,
-            data: resp
-        })
-    }, err=>{
-        res.status(400).json({
-            data: {
-                message: "Error in adding Product, try again later"
-            }
-        })
-    })
-    .catch(err=>{
-        res.status(400).json({
-            data: {
-                message: "Error in adding product, try again later"
-            }
-        })
-    })
-   }
+    }   
   )
 
 
