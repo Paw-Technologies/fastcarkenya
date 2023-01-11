@@ -134,9 +134,7 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
                 console.log(resp)
             })
             .catch(err=>{
-                return res.json(500).json({
-                    message: "Could not complete payment"
-                })
+                console.log('this err', err)
             })
         }
     })
