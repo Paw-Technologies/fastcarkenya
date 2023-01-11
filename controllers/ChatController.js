@@ -2,10 +2,12 @@ const Chat = require("../models/Chat");
 
 
 const addMessage = async(req, socket) => {
-    let isChat = await Chat.findOne({$and :[{seller: req.seller, buyer: req.buyer}]})
+    let isChat = await Chat.findOne({$and :[{sellerId: req.seller.userId, buyerId: req.buyer.userId}]})
+    
+
     if(isChat !== null){
         isChat.updateOne({$push:{messages: req.message}}, (err, doc)=>{
-            if(err)return console.log("is ", err)
+            if(err)return false
         })
         return true
     }
@@ -16,7 +18,7 @@ const addMessage = async(req, socket) => {
     })
     await newChat.save()
     .then(res=>{
-        console.log("is res: ", res)
+        console.log('saved...', res)
         return true;
     }, err=>{
         return false

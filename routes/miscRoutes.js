@@ -99,9 +99,53 @@ miscServer.post('/editaccount', async(req, res, next)=>{
     }
 )
 
+const intaSend = require('intasend-node');
+const { getCategoryPricing } = require('../utils/CategoryPricing');
+
+let intasend = new intaSend(process.env.INTAPUB, process.env.INTASEC, true)
+
+let collection = intasend.collection()
 
 miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
+
+    // check account balance
+    let user = await User.findById(JSON.parse(req.body.seller).userId)
+    
+    // user not found
+    if(user === null) return res.status(404).json({
+        message: "You do not have an account"
+    })
+
+    // user found check balance with product category
+    getCategoryPricing(req.body.category, user)
+    .then(resp=>{
+        if(!resp.p){
+            collection
+            .mpesaStkPush({
+                first_name: JSON.parse(req.body.seller).name,
+                last_name: JSON.parse(req.body.seller).name,
+                email: JSON.parse(req.body.seller).email,
+                host: "https://fastcar.onrender.com",
+                amount: resp.v,
+                phont_number: JSON.parse(req.body.seller).phoneNumber,
+                api_ref: "just testing"
+            })
+            .then(resp=>{
+                console.log(resp)
+            })
+            .catch(err=>{
+                return res.json(500).json({
+                    message: "Could not complete payment"
+                })
+            })
+        }
+    })
+    return
+
+
+    //return await Product.deleteMany()
     // save image
+    // return console.log(JSON.parse(req.body.seller))
     const files = req.files;
 
     const urls = [];
@@ -112,13 +156,14 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
     let empty = req.body
     empty['images'] = urls
+    empty['seller'] = JSON.parse(req.body.seller)
     let product = new Product(empty)
 
     await product.save()
     .then(resp=>{
         res.status(200).json({
             status: "Success",
-            message: `${req.body.model || req.body.name} Has been added`,
+            message: `${req.body.model || req.body.name || "Product"} Has been added`,
             productId: resp._id,
             data: resp
         })
@@ -189,12 +234,19 @@ miscServer.delete('/deleteproduct', async(req, res)=>{
 })
 
 miscServer.get('/getuser', async(req, res)=>{
-    let user = await User.findById(req.headers.userid)
-    if(user){
-        res.status(200).json({
-            user: user
-        })
+    console.log("jdflkaj", req.headers.userid)
+    try {
+        let user = await User.findById(req.headers.userid)
+        if(user){
+            console.log(user)
+            res.status(200).json({
+                user: user
+            })
+        }
+    } catch (error) {
+        console.log(error)
     }
+    
 })
 
 
@@ -212,7 +264,7 @@ miscServer.post('/find', async(req, res)=>{
 
 miscServer.get('/getchats', async(req, res)=>{
     // return await Chat.deleteMany({})
-    let chats = await Chat.find({$or: [{seller: req.headers.userid}, {buyer: req.headers.userid}]})
+    let chats = await Chat.find({$or: [{sellerId: req.headers.userid}, {buyerId: req.headers.userid}]})
     
     res.status(200).json({
         chats: chats

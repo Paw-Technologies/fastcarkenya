@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 
 const chats = new mongoose.Schema({
     buyer: {
-        type: String,
+        type: {},
         required: true
     },
     seller: {
-        type: String,
+        type: {},
         required: true
     },
     messages: {

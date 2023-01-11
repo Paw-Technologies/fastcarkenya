@@ -25,7 +25,9 @@ const productSchema = new mongoose.Schema({
     },
     year: {
         type: Number,
-        
+    },
+    type: {
+        type: String
     },
     country: {
         type: String,
@@ -86,7 +88,7 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     seller: { // will check if needed
-        type: String,
+        type: Object,
         required: true
     },
     createdBy: {

@@ -37,6 +37,46 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user',
     },
+    balance: {
+        type: Number,
+        default: 0
+    },
+    carTkt: {
+        type: Number
+    },
+    wheelTkt: {
+        type: Number
+    },
+    tyreTkt: {
+        type: Number
+    },
+    partsTkt: {
+        type: Number
+    },
+    garTkt: {
+        type: Number
+    },
+    wrapTkt: {
+        type: Number
+    },
+    accTkt: {
+        type: Number
+    },
+    battTkt: {
+        type: Number
+    },
+    perfTkt: {
+        type: Number
+    },
+    bikeTkt: {
+        type: Number
+    },
+    adTicket: {
+        type: [] // amount, category, transaction
+    },
+    transactions: {
+        type: []
+    },
     password: {
         type: String,
         required: [true, 'Please provide a password'],

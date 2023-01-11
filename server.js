@@ -45,11 +45,13 @@ const socketIO = require('socket.io')(server, {
 
 // chat management
 socketIO.on('connection', (socket) => {
-    console.log('connected')
 
     socket.on('message', async(data)=>{
+        console.log('messaged')
+
         let add = await addMessage(data, socket)
         if(add === true){
+            console.log(add)
             socket.emit('responded', {seller: data.seller, buyer: data.buyer})
         }
     })
@@ -58,11 +60,12 @@ socketIO.on('connection', (socket) => {
 
 
 process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
-  console.log("UNHANDLED REJECTION!💥 Shutting down...");
-  server.close(() => {
-    process.exit(1);
-  });
+    console.log(err)
+    console.log(err.name, err.message);
+    console.log("UNHANDLED REJECTION!💥 Shutting down...");
+    server.close(() => {
+        process.exit(1);
+    });
 });
 
 process.on("SIGTERM", () => {
