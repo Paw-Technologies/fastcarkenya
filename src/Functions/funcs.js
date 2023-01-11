@@ -52,7 +52,7 @@ export const timeParser = (newDate) =>{
     }
     let minutes = () => newDate.getMinutes() < 10 ? "0"+newDate.getMinutes() : newDate.getMinutes()
 
-    return hours() + " : " + minutes() + isPm()
+    return hours() + ":" + minutes() + isPm()
 }
 
 export let messagesHardCode = []

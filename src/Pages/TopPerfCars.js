@@ -15,15 +15,13 @@ const TopPerfCars = () => {
       <div className='category' style={{
         paddingBottom: '0%'
       }} >
-        {products.length < 1 && <HomeLoadBanner />}
+        {products.filter(p=>isPerfCar(p.category)).length < 1 && <HomeLoadBanner />}
 
-        {products.map(prod=>{
-        if (isPerfCar(prod.category)){
-          return <ShowProduct 
+        {products.filter(p=>isPerfCar(p.category)).map(prod=><ShowProduct 
               key={prod._id}
               product={prod}
-          />}
-        } )
+          />
+         )
       }
       </div>
     )
