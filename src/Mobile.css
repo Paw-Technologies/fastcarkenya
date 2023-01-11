@@ -6,6 +6,12 @@
     .h1 {
         font-size: 2em !important;
     }
+    .chatList {
+        width: 100% !important;
+    }
+    .chatList nav {
+        width: 100vw !important;
+    }
     nav {
       height: 4em !important;
       line-height: 4em !important;
@@ -53,8 +59,9 @@
       width: 100% !important;
     }
     .companyTitle {
-      width: inherit !important;
+      width: max-content !important;
       height: inherit !important;
+      margin-top: 2vh !important;
     }
     
     .imageViewer {

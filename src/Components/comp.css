@@ -7,7 +7,7 @@
     text-align: left;
 }
 .chatList nav {
-    width: 105% !important;
+    width: 105%;
     height: 5vmax;
     z-index: 80;
     line-height: 5vmax;

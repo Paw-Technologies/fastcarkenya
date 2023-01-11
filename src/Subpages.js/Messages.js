@@ -44,18 +44,23 @@ const Messages = () => {
     }, [])
 
     useEffect(()=>{
-        socket.on('connection', ()=>{
-            fetch()
-        })
-        socket.on('responded', ({seller, buyer})=>{
-            if((seller.userId === userDetails.userId) || (buyer.userId === userDetails.userId)){
+        try {
+            socket.on('connection', ()=>{
                 fetch()
-            }
-            return
-        })
-        return (()=>{
-            socket.disconnect()
-        })
+            })
+            socket.on('responded', ({seller, buyer})=>{
+                if((seller.userId === userDetails.userId) || (buyer.userId === userDetails.userId)){
+                    fetch()
+                }
+                return
+            })
+            return (()=>{
+                socket.disconnect()
+            })
+        } catch (error) {
+            console.log('xxx')
+        }
+        
     }, [chats])
     
 

@@ -16,7 +16,7 @@ const ChatList = ({chats}) => {
     <div className='chatList'>
         <nav>Chats</nav>
         <div className='chats'>
-            {chats.map(chat=><ChatListing 
+            {typeof(chats) !== 'undefined' && chats.map(chat=><ChatListing 
                 key={chat._id}
                 chat={chat}
             />)}
