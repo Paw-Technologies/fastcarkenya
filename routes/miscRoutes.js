@@ -122,8 +122,8 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
         if(!resp.p){
             collection
             .mpesaStkPush({
-                first_name: JSON.parse(req.body.seller).name,
-                last_name: JSON.parse(req.body.seller).name,
+                first_name: 'Derek',
+                last_name: 'Pesa',
                 email: JSON.parse(req.body.seller).email,
                 host: "https://fastcar.onrender.com",
                 amount: resp.v,
