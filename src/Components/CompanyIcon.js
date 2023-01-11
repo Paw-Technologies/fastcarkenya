@@ -5,9 +5,11 @@ import logo from '../images/scalelogo.png'
 const CompanyIcon = () => {
     const navigate = useNavigate()
   return (
-    <div className='companyTitle'>
-      {/* <img src={logo} alt="logo" /> */}
-      <h1 onClick={()=>navigate("/")}>FASTCAR</h1>
+    <div className='companyTitle' onClick={()=>navigate("/")}>
+        <span>
+            <h1>FASTCAR</h1><p>.co.ke</p>
+        </span>
+        <p>Automotive Marketing</p>
     </div>
     
   )

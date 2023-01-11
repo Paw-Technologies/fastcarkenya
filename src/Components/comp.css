@@ -73,7 +73,7 @@
     color: white;
 }
 .showEvent div {
-    text-indent: 22px;
+    text-indent: 2px;
 }
 .showEvent img {
     width: 100%;
@@ -707,6 +707,7 @@
 }
 .mainNav div:nth-child(1) {
     display: grid;
+    height: inherit;
     grid-auto-flow: column;
     justify-content:space-between;
     grid-template-columns: 20% 30% 50%;
