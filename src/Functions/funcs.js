@@ -43,7 +43,8 @@ export const getUser = async(id) =>{
 }
 
 export const timeParser = (newDate) =>{
-    let isPm = () => newDate.getHours > 12 ? "pm" : "am"
+    let isPm = () => newDate.getHours() > 11 ? "pm" : "am"
+    
     let hours = () =>{
         if (newDate.getHours() > 12) return newDate.getHours() - 12
         if (newDate.getHours() === 0) return 12

@@ -14,7 +14,7 @@ const ChatList = ({chats}) => {
 
   return (
     <div className='chatList'>
-        <h1>Chats</h1>
+        <nav>Chats</nav>
         <div className='chats'>
             {chats.map(chat=><ChatListing 
                 key={chat._id}

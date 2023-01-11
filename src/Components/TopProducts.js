@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie'
 import api2 from '../apis/api2'
 import { useDispatch, useSelector } from 'react-redux'
 import HomeLoadBanner from './HomeLoadBanner'
+import ShowApparel from './ShowApparel'
 
 const TopProducts = (props) => {
   const products = useSelector(state=>state.clientSlice.globalProducts)
@@ -23,6 +24,10 @@ const TopProducts = (props) => {
 
       {products.map(prod=>{
       if (isProduct(prod.category)){
+        if(prod.category === 'APPAREL') return <ShowApparel 
+            key={prod._id}
+            product={prod}
+        />
         return <ShowProduct 
             key={prod._id}
             product={prod}

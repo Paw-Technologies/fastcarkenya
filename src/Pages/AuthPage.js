@@ -1,32 +1,29 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import api from '../apis/api'
-import ForgotPassword from '../Components/ForgotPassword'
 import Spinner from '../Components/Spinner'
-import { useToken } from '../customHooks/useToken'
 import useUserData from '../customHooks/useUserData'
 import { useUserId } from '../customHooks/useUserId'
 import illust from '../images/carxray.png'
 import { log_in } from '../Store.js/store'
 
 const AuthPage = (props) => {
-    const {userId, setUserId} = useUserId()
+    const {setUserId} = useUserId()
     const navigate = useNavigate()
     const lokeshen = useLocation()
     const cookie = new Cookies()
-    let isLog = useSelector(state=>state.clientSlice.isLoggedIn)
+    // let isLog = useSelector(state=>state.clientSlice.isLoggedIn)
     const dispatch = useDispatch()
     const [isLoggedIn, setIsLogIn] = useState(false)
-    const [isForgPass, setIsFog] = useState(false)
     const [spin, setSpin] = useState(false)
     const [message, setMsg] = useState("")
     const [ userDetails, setUserData ] = useUserData()
     const [details, setDet] = useState({
         name: "",
         email: "",
-        phone: "",
+        phoneNumber: "",
         country: "",
         city: "",
         password: "",
@@ -34,7 +31,7 @@ const AuthPage = (props) => {
     })
     
     
-    cookie.remove('accessTkn')
+    // cookie.remove('accessTkn')
 
     const input = (e) =>{
         // eslint-disable-next-line default-case
@@ -48,7 +45,7 @@ const AuthPage = (props) => {
                 break;
             }
             case 'phone': {
-                setDet(p=>({...p, phone: e.target.value}))
+                setDet(p=>({...p, phoneNumber: e.target.value}))
                 break
             }
             case 'password': {
@@ -79,7 +76,7 @@ const AuthPage = (props) => {
             setUserData('n', res.data.data.user.name)
             setUserData('e', res.data.data.user.email)
             setUserData('i', res.data.data.user.id)
-            setUserData('p', res.data.data.user.phone)
+            setUserData('p', res.data.data.user.phoneNumber)
             
             dispatch(log_in())
             if(!lokeshen.pathname.includes("auth")){
@@ -110,11 +107,11 @@ const AuthPage = (props) => {
             
             setUserId(res.data.data.user._id)
             
-            console.log(res.data.data)
             setUserData('t', res.data.token)
-            setUserData('n', res.data)
-
-            return
+            setUserData('n', res.data.data.user.name)
+            setUserData('e', res.data.data.user.email)
+            setUserData('i', res.data.data.user.id)
+            setUserData('p', res.data.data.user.phoneNumber)
 
             dispatch(log_in())
             if(!lokeshen.pathname.includes("auth")){
@@ -133,7 +130,7 @@ const AuthPage = (props) => {
         })
     }
 
-    if(isForgPass) return <ForgotPassword />
+    // if(isForgPass) return <ForgotPassword />
     
     return (
     <div className='page' id='authPage'>
@@ -161,7 +158,7 @@ const AuthPage = (props) => {
             type='tel'
             placeholder='Phone Number'
             name='phone'
-            value={details.phone}
+            value={details.phoneNumber}
             onChange={input}
         />}
         {!isLoggedIn && <input className='input1' 
@@ -208,9 +205,9 @@ const AuthPage = (props) => {
             {isLoggedIn ? "Dont have an account, signup Instead?" : 
             "Have an account login instead?"}
         </button>
-        <button className='button1'
+        {/* <button className='button1'
             onClick={()=>setIsFog(true)}
-        >Forgot your password?</button>
+        >Forgot your password?</button> */}
       </form>
 
         {window.innerWidth > 600 &&<div className='illust'>

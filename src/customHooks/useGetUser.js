@@ -1,39 +1,28 @@
-import { useState } from "react";
-import { json } from "react-router-dom";
+// import { } from "react";
+// import { json } from "react-router-dom";
 import api2 from "../apis/api2";
 
-export const useGetUser = () =>{
+export const useGetUser = (id, set) =>{
+    const get_user = async() =>{
     
-    const get_user = (id)=>{
-        // localStorage.removeItem(`${id}`)
         try {
-            if(JSON.parse(sessionStorage.getItem(`${id}`)) === null) throw Error()
-           return (JSON.parse(sessionStorage.getItem(`${id}`)) )
+            let user = JSON.parse(sessionStorage.getItem(`${id}`));
+            if(user === null) throw Error()
         } catch (error) {
-            fetch_user(id)
-            return {name: "Waiting...."}
+            await api2.get('/getuser', {headers: {userid: id}})
+            .then(res=>{
+                console.log(res.data)
+            }, err=>{
+                console.log(err)
+            })
+            .catch(err=>{
+                console.log(err.message)
+            })
         }
-        
     }
 
-    const [user, setUser] = useState({name: "loading"})
+    // const [user, setUser] = useState()
 
-    const fetch_user = async(id) =>{
-        await api2.get('/getuser', {headers: {userid: id}})
-        .then(res=>{
-            setUser(res.data.user)
-            sessionStorage.setItem(`${id}`, JSON.stringify(res.data.user))
-        })
-        .catch(err=>{
-                
-        })
-    }
-
-
-    return {
-        user,
-        get_user,
-        fetch_user,
-    }
+    return [get_user]
 }
 

@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { json } from 'react-router-dom'
 import api2 from '../apis/api2'
+import useUserData from '../customHooks/useUserData'
 import { useUserId } from '../customHooks/useUserId'
 import './comp.css'
 import ImageUpload from './ImageUpload'
 import Spinner from './Spinner'
 
 const AddProductForm = () => {
-    const {rtUserId} = useUserId()
+    const [userDetails] = useUserData()
     const [spin, setSpin] = useState(false)
     const categories = useSelector(state=>state.clientSlice.categories)
     let formdata = new FormData()
@@ -40,6 +41,7 @@ const AddProductForm = () => {
         powerOutput: "",
         currentTurbo: "",
         driveTrain: "",
+        type: ""
     })
 
     const getIsService = () => {
@@ -63,7 +65,7 @@ const AddProductForm = () => {
     const sendProduct = async(e) =>{
         e.preventDefault()
         formdata.append('category', product.category)
-        formdata.append('seller', rtUserId())
+        formdata.append('seller', JSON.stringify(userDetails))
         formdata.append("description", product.description)
         formdata.append('country', garage.country)
         formdata.append('city', garage.city)
@@ -77,6 +79,7 @@ const AddProductForm = () => {
             formdata.append('contacts', garage.contacts)
         } else {
             formdata.append('brandName', product.brandName)
+            formdata.append('type', product.type)
             formdata.append('model', product.model)
             formdata.append('partNumber', product.partNumber)
             formdata.append('size', product.size)
@@ -100,6 +103,10 @@ const AddProductForm = () => {
           }})
         .then(res=>{
             setSpin(false)
+            if(res.data.needPay){
+                alert('You do not have enough credits to post this product, you will be redirected to a payout page')
+                return window.open(res.data.url,'_blank')
+            }
             alert(res.data.message)
         }, ({response})=>{
             setSpin(false)
@@ -148,6 +155,8 @@ const AddProductForm = () => {
             </select>
         </div>
         {!getIsService() && <>
+            {!product.category.includes('APPAREL') && 
+            <>
             <div>
                 <label>{product.category.includes("PARTS") ? "Part" : "Brand"} Name</label>
                 <input 
@@ -179,7 +188,7 @@ const AddProductForm = () => {
                 />
             </div>
             
-            {product.category.includes("CARS") && 
+            {(product.category.includes("CARS") || product.category.includes("MOTORBIKES")) && 
             <> 
                 <div>
                     <label>Year</label>
@@ -313,7 +322,52 @@ const AddProductForm = () => {
                     <option value={false}>Used</option>
                 </select> 
             </div>
+            </>
+           } 
+           {product.category.includes('APPAREL') && 
+           <>
             <div>
+                <label>Type</label>
+                <input 
+                    className='input1'
+                    placeholder='type'
+                    list='apparels'
+                    value={product.type}
+                    onChange={e=>setProduct(p=>({...p, type: e.target.value}))}
+                />
+                <datalist id='apparels'>
+                    <option value={'Tops'}>Tops</option>
+                    <option value={'Hats'}>Hats</option>
+                    <option value={'Sweat Pant'}>Sweat Pant</option>
+                    <option value={'Hoodie'}>Hoodie</option>
+                    <option value={'Watch'}>Watch</option>
+                    <option value={'T-Shirts'}>T-Shirts</option>
+                </datalist>
+            </div>
+            <div>
+                <label>Size</label>
+                <select value={product.size} onChange={e=>setProduct(
+                    p=>({...p, size: product.size})
+                )}>
+                    <option value={'Small'}>Small</option>
+                    <option value={'Medium'}>Medium</option>
+                    <option value={'Large'}>Large</option>
+                    <option value={'XL'}>XL</option>
+                    <option value={'2XL'}>2XL</option>
+                    <option value={'3XL'}>3XL</option>
+                </select>
+            </div>
+            <div>
+                <label>Price</label>
+                <input
+                    className='input1'
+                    placeholder='Enter amount'
+                    value={product.price}
+                    onChange={e=>setProduct(p=>({...p, price: e.target.value}))}
+                />
+            </div>
+           </>}
+           <div>
                 <label>Country</label>
                 <input 
                     className='input1'
@@ -336,7 +390,10 @@ const AddProductForm = () => {
                     onChange={e=>setProduct(p=>({...p, city: e.target.value}))}
                 />
             </div>
+           
+           
         </>}
+                
 
         {getIsService() && <>
                 <div>

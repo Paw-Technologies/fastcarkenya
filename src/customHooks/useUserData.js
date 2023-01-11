@@ -9,8 +9,8 @@ const useUserData = () => {
     const getUserPhone = () => localStorage.getItem('userPhone');
 
     const [userDetails, setUserDetails] = useState({
-        name: getUserId(),
-        phone: getUserPhone(),
+        name: getUserName(),
+        phoneNumber: getUserPhone(),
         email: getUserEmail(),
         userId: getUserId(),
         token: getuseToken()
@@ -36,7 +36,7 @@ const useUserData = () => {
                 break;
             case 'p':
                 localStorage.setItem('userPhone', value);
-                setUserDetails(p=>({...p, phone: getUserPhone()}));
+                setUserDetails(p=>({...p, phoneNumber: getUserPhone()}));
                 break;
             default:
                 break;

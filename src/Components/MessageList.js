@@ -14,7 +14,7 @@ const MessageList = () => {
     }
   return (
     <div className='messageList'>
-        {messages.length < 1 && <h1>No Message</h1>}
+        {messages.length < 1 && <h1>Select</h1>}
         {messages.length > 0 && getMsg().map((msg, indx) => <MessageBubble 
             key={indx}
             message={msg.message}

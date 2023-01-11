@@ -2,33 +2,29 @@ import React, { useEffect, useState } from 'react'
 import useUserData from '../customHooks/useUserData'
 import  { useGetUser} from '../customHooks/useGetUser'
 import './comp.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { set_curr_chat } from '../Store.js/store'
 
 const ChatListing = (props) => {
+    const recepId = () => props.chat.seller === userDetails.userId ? props.chat.buyer: props.chat.seller
     const [userDetails] = useUserData()
     const dispatch = useDispatch()
-    const {get_user} = useGetUser()
+    const currentChat = useSelector(state=>state.clientSlice.currentChat)
     const [user, setUser] =useState({name: "waiting..."})
-    let myUser = async() =>{
-        let x = props.chat.seller === userDetails.userId ? props.chat.buyer: props.chat.seller
-        let user = await get_user(x)
-        setUser(user)
-    }
+
+    const myUser = () => currentChat.seller.userId !== userDetails.userId ? currentChat.seller : currentChat.buyer
 
     let lastMessage = props.chat.messages[props.chat.messages.length -1]
-    useEffect(()=>{
-        myUser()
-    }, [])
-
+    
     const setCurr = () =>{
-        console.log('this', props.chat)
         dispatch(set_curr_chat(props.chat))
     }
+
+    console.log(props.chat)
   return (
     <div className='chatListing' onClick={setCurr}>
-        <h3>{user.name}</h3>
-        <p>{lastMessage.message}</p>
+        <h3>{myUser().name}</h3>
+        <p>{lastMessage.message.slice(0, 25)+"..."}</p>
         <em>{lastMessage.time}</em>
     </div>
   )

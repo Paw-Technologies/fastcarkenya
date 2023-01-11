@@ -10,10 +10,13 @@ import acc from '../images/acc.png'
 import wrap from '../images/wrap.png'
 import batt from '../images/batt.png'
 import perf from '../images/perfCarsBg.png'
-import api2 from "../apis/api2"
+import bike from '../images/bike.png'
+import cap from '../images/cap.png'
 
 const categories = [
     {n: "CARS FOR SALE", i: car},
+    {n: "PERFORMANCE CARS", i: perf},
+    {n: "MOTORBIKES", i: bike},
     {n: "WHEELS", i: wheel},
     {n: "TYRES", i: tyres},
     {n: "PARTS", i: parts},
@@ -22,7 +25,7 @@ const categories = [
     {n: "WRAP SHOPS", i: wrap},
     {n: "ACCESSORIES", i: acc},
     {n: "BATTERIES", i: batt},
-    {n: "PERFORMANCE CARS", i: perf}
+    {n: "APPAREL", i: cap}
 ]
 
 
@@ -36,6 +39,9 @@ const cSlice = createSlice({
     reducers: {
         set_chats(state, action){
             state.chats = [...new Set(action.payload)]
+        },
+        add_message(state, action){
+            state.currentChat.messages.push(action.payload)
         },
         set_curr_chat(state, action){
             state.currentChat = action.payload
@@ -82,7 +88,8 @@ export const {
     log_out,
     fetch_events,
     set_curr_chat,
-    set_chats
+    set_chats,
+    add_message
  } = cSlice.actions;
 
 let clientSlice = cSlice.reducer

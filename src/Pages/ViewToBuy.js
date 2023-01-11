@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { MdCall, MdChat } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
-import BuyproductForm from '../Components/BuyproductForm'
+// import BuyproductForm from '../Components/BuyproductForm'
 import ImageViewer from '../Components/ImageViewer'
 import Spinner from '../Components/Spinner'
 import './page.css'
-import ReviewList from '../Components/ReviewList'
+// import ReviewList from '../Components/ReviewList'
 import Rate from '../Components/Rate'
 import api2 from '../apis/api2'
 import { useUserId } from '../customHooks/useUserId'
@@ -38,6 +38,7 @@ const ViewToBuy = () => {
         if(services.includes(lokeshen.state.product.category)){
             getRating()
         }
+        console.log(lokeshen.state.product)
     }, [])
 
     useEffect(()=>{
@@ -49,6 +50,7 @@ const ViewToBuy = () => {
             navigate('/')
         }
     }, [])
+
 
     if(product === null || typeof(product)==='undefined') return <div style={{width: '100%', height: "90vh"}}>
         <Spinner />
@@ -64,6 +66,21 @@ const ViewToBuy = () => {
         <section className='buySection'>
 
             {!services.includes(product.category) && <>
+                {product.category.includes('APPAREL') && 
+                <div className='buyDetails'>
+                    <div>
+                        <p>Type: </p><h2>{product.type}</h2>
+                    </div>
+                    <div>
+                        <p>Price: </p><h2>{product.price}</h2>
+                    </div>
+                    <div>
+                        <p>Size: </p><h2>{product.size}</h2>
+                    </div>
+                </div>
+                }
+
+                {!product.category.includes('APPAREL') &&
                 <div className='buyDetails'>
                     <div>
                         <p>Brand: </p><h2>{product.brandName}</h2>
@@ -123,6 +140,7 @@ const ViewToBuy = () => {
                         <p>City: </p><h2>{product.city}</h2>
                     </div>
                 </div>
+                }
             </>
             }
             {services.includes(product.category) && <>
@@ -139,7 +157,7 @@ const ViewToBuy = () => {
              by the seller
              */}
             
-            {product.seller !== rtUserId() && <>
+            {product.seller.userId !== rtUserId() && <>
                 <div>
                     <button className='button1' >
                         Call Seller <MdCall />
