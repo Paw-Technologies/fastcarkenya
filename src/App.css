@@ -73,19 +73,26 @@ textarea {
   display: flex !important;
   flex-direction: column;
   justify-content: space-around !important;
-  font-family: cehua;
+  font-family: 'Times New Roman';
   user-select: none;
-  color: white;
+  color: black;
   margin: auto;
 }
 .companyTitle span {
     width: inherit !important;
-    height: 2.5vmax;
+    height: 1.5vmax;
     display: grid;
     grid-auto-flow: column;
 }
+.companyTitle span p {
+    margin-top: 14%;
+}
+.companyTitle span h1 {
+    font-weight: bolder;
+}
 .companyTitle p {
     width: 100%;
+    font-size: 0.8vmax;
     display: grid;
     grid-auto-flow: column;
 }

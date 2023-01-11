@@ -55,11 +55,8 @@
     .companyTitle {
       width: inherit !important;
       height: inherit !important;
-      font-size: 1.2em !important;
     }
-    .companyTitle img {
-      width: ;
-    }
+    
     .imageViewer {
       width: 100vw !important;
       position: sticky !important;

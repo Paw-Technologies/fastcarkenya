@@ -7,9 +7,9 @@ const CompanyIcon = () => {
   return (
     <div className='companyTitle' onClick={()=>navigate("/")}>
         <span>
-            <h1>FASTCAR</h1><p>.co.ke</p>
+            <h1>FASTCAR</h1><p>.CO.KE</p>
         </span>
-        <p>Automotive Marketing</p>
+        <p>AUTOMOBILE MARKETING</p>
     </div>
     
   )
