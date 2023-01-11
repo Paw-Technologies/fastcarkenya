@@ -54,7 +54,7 @@ const ViewToBuy = () => {
 
     if(product === null || typeof(product)==='undefined') return <div style={{width: '100%', height: "90vh"}}>
         <Spinner />
-        <h1>Hello world</h1>
+        <h1>Wait...</h1>
     </div> 
     try {
         
@@ -160,7 +160,9 @@ const ViewToBuy = () => {
             {product.seller.userId !== rtUserId() && <>
                 <div>
                     <button className='button1' >
-                        Call Seller <MdCall />
+                        <a href={`tel://${product.seller.phoneNumber}`}>
+                            Call Seller <MdCall />
+                        </a>
                     </button>
                     <button className='button1' onClick={()=>{
                             if(window.innerWidth > 599) return navigate('/dashboard/messages', {state: {seller: product.seller}})
@@ -169,6 +171,12 @@ const ViewToBuy = () => {
                     }>
                         Start a chat <MdChat />
                     </button>
+                    <button className='button1' onClick={()=>{
+
+                    }}>
+                        <a href={`http://wa.me/${product.seller.phoneNumber}`}>
+                            Chat on Whatsapp
+                        </a></button>
                 </div>
                 <Rate product={product._id} />
             </>}

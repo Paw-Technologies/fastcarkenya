@@ -4,8 +4,11 @@ import logo from '../images/scalelogo.png'
 
 const CompanyIcon = () => {
     const navigate = useNavigate()
+    const style = {
+        height: window.innerWidth < 600 ? "5vmax" : "3vmax"
+    }
   return (
-    <div className='companyTitle' onClick={()=>navigate("/")}>
+    <div style={style} className='companyTitle' onClick={()=>navigate("/")}>
         <span>
             <h1>FASTCAR</h1><p>.CO.KE</p>
         </span>

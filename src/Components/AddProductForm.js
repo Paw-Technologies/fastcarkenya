@@ -446,7 +446,7 @@ const AddProductForm = () => {
         <button className='button1' type='submit'
             
         >
-            Add to catalogue
+            Upload Product
         </button>
     </form>
   )

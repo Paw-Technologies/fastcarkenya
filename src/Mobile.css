@@ -59,9 +59,14 @@
       width: 100% !important;
     }
     .companyTitle {
-      width: max-content !important;
-      height: inherit !important;
-      margin-top: 2vh !important;
+        width: max-content !important;
+        height: 5vmax !important;
+    }
+    .companyTitle span h1 {
+        font-size: 1.5em !important;
+    }
+    .companyTitle p {
+        font-size: 0.75em !important;
     }
     
     .imageViewer {
@@ -78,7 +83,7 @@
       display: grid;
     }
     .mainNav {
-      margin-bottom: 10%;
+      margin-bottom: 5%;
     }
     .mobileSearchBar {
       width: 100%;

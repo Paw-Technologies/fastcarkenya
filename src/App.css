@@ -70,7 +70,7 @@ textarea {
 
 .companyTitle {
   width:max-content;
-  height: 5vmax !important;
+  height: 3vmax;
   display: flex !important;
   flex-direction: column;
   justify-content: space-around !important;
@@ -81,18 +81,22 @@ textarea {
 }
 .companyTitle span {
     width: inherit !important;
-    height: 1.5vmax;
+    height: 50%;
     display: grid;
     grid-auto-flow: column;
 }
 .companyTitle span p {
-    margin-top: 14%;
+    font-size: 1.25vmax;
+    margin-top: 7% !important;
 }
 .companyTitle span h1 {
+    font-size: 2vmax;
     font-weight: bolder;
+    color: white !important;
 }
 .companyTitle p {
     width: 100%;
+    text-align: left;
     font-size: 0.8vmax;
     display: grid;
     grid-auto-flow: column;
@@ -194,6 +198,8 @@ button {
 }
 .button1 * {
   margin: auto;
+  text-decoration: none;
+  color: white;
 }
 .button1:active {
   background-color: #f34064;

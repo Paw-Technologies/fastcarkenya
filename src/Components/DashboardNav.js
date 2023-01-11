@@ -28,7 +28,7 @@ const DashboardNav = () => {
       }
       
       {(window.innerWidth < 600 && location.pathname.includes("messages")) && 
-      <DashBtn text={"msg"} />}
+      <DashBtn text={"Chats"} path="messages/chatlist" />}
     </nav>
   }
 }

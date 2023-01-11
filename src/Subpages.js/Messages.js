@@ -68,8 +68,8 @@ const Messages = () => {
         
 
     if(window.innerWidth < 800) return <div>
-        {lokeshen.pathname.includes('chatlist') && <ChatList />}
-        {lokeshen.pathname.includes("openchat") && <ChatScreen />}
+        {lokeshen.pathname.includes('chatlist') && <ChatList chats={chats} />}
+        {lokeshen.pathname.includes("openchat") && <ChatScreen socket={socket} />}
     </div>
     return (
         <div className='sub' id='messages'>

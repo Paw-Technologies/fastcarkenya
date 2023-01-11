@@ -10,7 +10,7 @@ const ShowApparel = ({product}) => {
         <img src={product.images[0]} alt="apparel" />
         <div className='description'>
             <h2>KSh.{product.price}</h2>
-            <h>{product.type}</h>
+            <h1>{product.type}</h1>
         </div>
     </div>
   )

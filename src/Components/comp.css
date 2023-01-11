@@ -8,9 +8,9 @@
 }
 .chatList nav {
     width: 105%;
-    height: 5vmax;
+    height: 40pt !important;
     z-index: 80;
-    line-height: 5vmax;
+    line-height: 40pt !important;
     font-weight: bolder;
     text-indent: 2%;
     color: white;
