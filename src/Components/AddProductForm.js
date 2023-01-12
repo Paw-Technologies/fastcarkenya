@@ -104,7 +104,7 @@ const AddProductForm = () => {
         .then(res=>{
             setSpin(false)
             if(res.data.needPay){
-                alert('You do not have enough credits to post this product, you will be redirected to a payout page')
+                alert('You do not have enough credits to post this product, you will be redirected to a payout page, pay then try again')
                 return window.open(res.data.url,'_blank')
             }
             alert(res.data.message)
