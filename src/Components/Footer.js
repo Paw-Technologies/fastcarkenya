@@ -36,7 +36,8 @@ const Footer = () => {
         <div>
             <h4>
                 <MdCopyright />
-                Fastcar{new Date().getFullYear()}
+                2018
+                {/* Fastcar{new Date().getFullYear()} */}
             </h4>
         </div>
         

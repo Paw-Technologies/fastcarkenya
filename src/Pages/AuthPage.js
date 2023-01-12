@@ -71,7 +71,6 @@ const AuthPage = (props) => {
             setSpin(false)
 
             setUserId(res.data.data.user._id)
-            console.log(res.data.data.user)
             setUserData('t', res.data.token)
             setUserData('n', res.data.data.user.name)
             setUserData('e', res.data.data.user.email)
@@ -106,7 +105,6 @@ const AuthPage = (props) => {
             cookie.set('isLoggedIn', true, {path: "*"})
             
             setUserId(res.data.data.user._id)
-            
             setUserData('t', res.data.token)
             setUserData('n', res.data.data.user.name)
             setUserData('e', res.data.data.user.email)

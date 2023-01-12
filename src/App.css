@@ -125,7 +125,7 @@ footer {
   background-color: #202020;
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80%;
+  grid-template-rows: 90%;
   text-align: center;
   text-align: center;
   color: white;
@@ -160,9 +160,12 @@ footer div:nth-child(1) {
   grid-auto-flow: column;
   width: 90%;
   margin-left: auto;
+  grid-template-columns: 20%;
 }
 footer section {
   display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: 3em;
   text-align: left;
 }
 .tagBtn {
