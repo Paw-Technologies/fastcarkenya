@@ -103,7 +103,7 @@ const intaSend = require('intasend-node');
 const { getCategoryPricing } = require('../utils/CategoryPricing');
 const Invoices = require('../models/Invoices');
 
-let intasend = new intaSend(process.env.INTAPUB, process.env.INTASEC, true)
+let intasend = new intaSend(process.env.INTAPUB, process.env.INTASEC, false)
 
 let collection = intasend.collection()
 
