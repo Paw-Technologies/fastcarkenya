@@ -85,6 +85,7 @@ textarea {
     display: grid;
     grid-auto-flow: column;
     color: white;
+    font-weight: bolder;
 }
 .companyTitle span p {
     font-size: 1.25vmax;
