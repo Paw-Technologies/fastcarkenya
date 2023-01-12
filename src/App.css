@@ -14,6 +14,15 @@
   text-align: center;
   color: black;
 }
+/* home load banner */
+.homeLoaderBanner {
+    animation: loadBanner 2s infinite linear forwards;
+}
+@keyframes loadBanner {
+    0%{background-color: #f0f0f0;}
+    50%{background-color: #ffc0cc;}
+    100%{background-color: #f0f0f0;}
+}
 
 /* start button styling */
 .starBtn {

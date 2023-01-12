@@ -8,7 +8,7 @@ const HomeLoadBanner = (props) => {
     const style = {
         width: "100%",
         height: "30vh",
-        backgroundColor: "rgb(151, 151, 151)"
+        // backgroundColor: "rgb(151, 151, 151)"
     }
     const img = {
         width: "100%",
