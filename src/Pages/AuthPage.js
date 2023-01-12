@@ -19,7 +19,7 @@ const AuthPage = (props) => {
     const [isLoggedIn, setIsLogIn] = useState(false)
     const [spin, setSpin] = useState(false)
     const [message, setMsg] = useState("")
-    const [ userDetails, setUserData ] = useUserData()
+    const [ setUserData ] = useUserData()
     const [details, setDet] = useState({
         name: "",
         email: "",

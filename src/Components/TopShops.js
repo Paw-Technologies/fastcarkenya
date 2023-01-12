@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Cookies from 'universal-cookie'
+import React from 'react'
+import { useSelector } from 'react-redux'
+// import Cookies from 'universal-cookie'
 import ShowService from './ShowService'
 import HomeLoadBanner from './HomeLoadBanner'
 
 const TopShops = () => {
-    const cookie = new Cookies()
-    const dispatch = useDispatch()
-    const [timeOut] = useState()
+    // const cookie = new Cookies()
+    // const dispatch = useDispatch()
+    // const [timeOut] = useState()
     const services = useSelector(state=>state.clientSlice.globalProducts)
 
     
