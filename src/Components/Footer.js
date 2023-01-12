@@ -24,7 +24,13 @@ const Footer = () => {
                 </a>
             </section>
             <section>
-                <h1>FAQs</h1>
+                <h1>Available in: </h1>
+                <a>Kenya</a>
+                <a>Uganda</a>
+                <a>Tanzania</a>
+                <a>Zambia</a>
+                <a>South Africa</a>
+                <a>United Arab Emirates</a>
             </section>
         </div>
         <div>

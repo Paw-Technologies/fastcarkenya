@@ -373,6 +373,7 @@ const AddProductForm = () => {
                     <option value='Kenya'>Kenya</option>
                     <option value='Tanzania'>Tanzania</option>
                     <option value='Uganda'>Uganda</option>
+                    <option value='Zambia'>Zambia</option>
                     <option value='South Africa'>South Africa</option>
                     <option value='United Arab Emirates'>United Arab Emirates</option>
                 </select>
