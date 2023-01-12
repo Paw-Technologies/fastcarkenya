@@ -466,6 +466,7 @@
 /* add product form */
 .addProductForm {
     width: 90%;
+    height: max-content !important;
     margin-left: auto;
     margin-right: auto;
     display: grid;

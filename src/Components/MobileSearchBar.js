@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './comp.css'
-import { FaSearch } from 'react-icons/fa'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const MobileSearchBar = () => {
     const lokeshen = useLocation()
+    const navigate = useNavigate()
+    const [searchTerm, setTerm] = useState("")
 
   if(window.innerWidth < 600 && !lokeshen.pathname.includes('category'))return (
-    <div className='mobileSearchBar' >
+    <div className='mobileSearchBar' > 
         <input className='input1'
             placeholder='Search'
+            value={searchTerm}
+            onChange={e=>setTerm(e.target.value)}
         />
-        <button>Search</button>
+        <button onClick={
+            ()=>navigate('/search', {state: {searchTerm: searchTerm}})
+        }>Search</button>
     </div>
   )
 }
