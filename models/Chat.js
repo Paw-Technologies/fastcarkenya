@@ -9,6 +9,12 @@ const chats = new mongoose.Schema({
         type: {},
         required: true
     },
+    sellerId: {
+        type: String,
+        required: doc =>{
+            return doc.seller.userId
+        }
+    },
     messages: {
         type: [{}]
         // {

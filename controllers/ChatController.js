@@ -2,8 +2,8 @@ const Chat = require("../models/Chat");
 
 
 const addMessage = async(req, socket) => {
+    // return await Chat.deleteMany()
     let isChat = await Chat.findOne({$and :[{sellerId: req.seller.userId, buyerId: req.buyer.userId}]})
-    
 
     if(isChat !== null){
         isChat.updateOne({$push:{messages: req.message}}, (err, doc)=>{

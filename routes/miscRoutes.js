@@ -116,7 +116,7 @@ const saveInvoice = async(client, invoiceId, cat) =>{
     })
     await newInvoice.save()
     .then(resp=>{
-
+        return resp
     })
     .catch(err=>{
 
@@ -125,25 +125,22 @@ const saveInvoice = async(client, invoiceId, cat) =>{
 
 // payment webhook 
 miscServer.post("/paidinvoice", async(req, res)=>{
-    let invoice = await Invoices.findOne({invoiceId: req.body.invoice_id})
-
-    if(invoice !== null){
-        console.log('done well')
-        invoice[0].updateOne({$set: {paid: true}})
-        let x = await User.findOne({_id: invoice.client})
-        if(x !== null){
-            let update = {}
-            update[invoice.client] = invoice.net_amount
-            x.updateOne(update)
-            .then(res=>{
-                console.log('update')
-                console.log('is res', res)
-            })
-            .catch(err=>{
-                console.log('error', err)
-            })
+    console.log("is is is is \n", req.body)
+    let { api_ref, value } = req.body
+    
+    let id = api_ref.slice(0, 24);
+    let category = api_ref.slice(24, api_ref.length)
+    let user = await User.findById(id)
+    let query = {}
+    query[category] = value
+    console.log("user is ", user)
+    user.updateOne({$set: query}, (err, doc)=>{
+        if(err){
+            return console.log('err', err)
         }
-    }
+        console.log("updated", doc)
+    })
+
 })
 
 miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
@@ -157,44 +154,43 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     })
 
     // user found check balance with product category
-    // getCategoryPricing(req.body.category, user)
-    // .then(resp=>{
-    //     if(!resp.p){
-    //         collection
-    //         .charge({
-    //             first_name: 'Derek',
-    //             last_name: 'Pesa',
-    //             email: userObj.email,
-    //             host: "https://fastcar.onrender.com",
-    //             amount: 10, //resp.v,
-    //             currency: 'KES',
-    //             phone_number: userObj.phoneNumber,
-    //             api_ref: "just testing"
-    //         })
-    //         .then(response=>{
-    //             saveInvoice(userObj.userId, response.id, resp.c)
-    //             .then(()=> res.status(200).json({
-    //                     needPay: true,
-    //                     url: response.url
-    //                 })
-    //             )
-                
-    //         })
-    //         .catch(err=>{
-    //             console.log('this err', err.toString())
-    //             // return
-    //         })
-    //         // return
-    //     }
-    //     // else{
-    //     proceed()
-    //     // }
-    // })
+    await getCategoryPricing(req.body.category, user)
+    .then(resp=>{
+        if(!resp.p){
+            collection
+            .charge({
+                first_name: `${userObj.name}`,
+                last_name: `${userObj.name}`,
+                email: userObj.email,
+                host: "https://fastcar.onrender.com",
+                amount: 10, //resp.v,
+                currency: 'KES',
+                phone_number: userObj.phoneNumber,
+                api_ref: `${userObj.userId}${resp.c}`,
+                userid: userObj.userId
+            }).then(response=>{
+                saveInvoice(userObj.userId, response.id, resp.c)
+                .then(()=> {
+                    res.status(200).json({
+                        needPay: true,
+                        url: response.url
+                    })
+                }
+                )
+            }).catch(err=>{
+                console.log('this err', err.toString())
+                return
+            })
+            return
+        }else{
+            proceed()
+        }
+    })
 
     // return await Product.deleteMany()
     // save image
     // return console.log(JSON.parse(req.body.seller))
-    proceed()
+    // proceed()
     async function proceed (){
         const files = req.files;
 
@@ -206,14 +202,21 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
         let empty = req.body
         empty['images'] = urls
+        // empty['paidFor'] = paidFor
         empty['seller'] = JSON.parse(req.body.seller)
         let product = new Product(empty)
 
         await product.save()
         .then(resp=>{
+            function addDays(date, days) {
+                var result = new Date(date);
+                result.setDate(result.getDate() + days);
+                return result;
+            }
+            // return console.log(resp.createdOn)
             res.status(200).json({
                 status: "Success",
-                message: `${req.body.model || req.body.name || "Product"} Has been added`,
+                message: `${req.body.model || req.body.name || "Product"} Has been added, it will be inactive on ${addDays(resp.createdOn, 10)})}`,
                 productId: resp._id,
                 data: resp
             })

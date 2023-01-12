@@ -19,7 +19,7 @@ const getCategoryPricing = (cat, user) =>{
     let x = new Promise((res, rej)=>{
         switch (a_case){
             case 0:
-                res({p: user.catTkt >= 333.333333333, v: 1000, c: 'catTkt'})
+                res({p: user.carTkt >= 10, v: 1000, c: 'carTkt'})
             case 1:
                 res({p: user.perfTkt >= 2000, v: 2000, c: 'perfTkt'})
             case 2:

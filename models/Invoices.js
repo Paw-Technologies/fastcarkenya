@@ -5,7 +5,11 @@ const newInvoice = new mongoose.Schema({
         type: String,
         required: true
     },
-    invoiceId: {
+    value: {
+        type: Number,
+        required: true
+    },
+    adId: {
         type: String,
         required: true
     },
