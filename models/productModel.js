@@ -91,6 +91,12 @@ const productSchema = new mongoose.Schema({
         type: Object,
         required: true
     },
+    sellerId: {
+        type: String,
+        default: (doc)=>{
+            return doc.seller.userId
+        }
+    },
     createdBy: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'

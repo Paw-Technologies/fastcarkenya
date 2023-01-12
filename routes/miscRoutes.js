@@ -157,43 +157,44 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     })
 
     // user found check balance with product category
-    getCategoryPricing(req.body.category, user)
-    .then(resp=>{
-        if(!resp.p){
-            collection
-            .charge({
-                first_name: 'Derek',
-                last_name: 'Pesa',
-                email: userObj.email,
-                host: "https://fastcar.onrender.com",
-                amount: 10, //resp.v,
-                currency: 'KES',
-                phone_number: userObj.phoneNumber,
-                api_ref: "just testing"
-            })
-            .then(response=>{
-                saveInvoice(userObj.userId, response.id, resp.c)
-                .then(()=> res.status(200).json({
-                        needPay: true,
-                        url: response.url
-                    })
-                )
+    // getCategoryPricing(req.body.category, user)
+    // .then(resp=>{
+    //     if(!resp.p){
+    //         collection
+    //         .charge({
+    //             first_name: 'Derek',
+    //             last_name: 'Pesa',
+    //             email: userObj.email,
+    //             host: "https://fastcar.onrender.com",
+    //             amount: 10, //resp.v,
+    //             currency: 'KES',
+    //             phone_number: userObj.phoneNumber,
+    //             api_ref: "just testing"
+    //         })
+    //         .then(response=>{
+    //             saveInvoice(userObj.userId, response.id, resp.c)
+    //             .then(()=> res.status(200).json({
+    //                     needPay: true,
+    //                     url: response.url
+    //                 })
+    //             )
                 
-            })
-            .catch(err=>{
-                console.log('this err', err.toString())
-                return
-            })
-            return
-        }else{
-            proceed()
-        }
-    })
+    //         })
+    //         .catch(err=>{
+    //             console.log('this err', err.toString())
+    //             // return
+    //         })
+    //         // return
+    //     }
+    //     // else{
+    //     proceed()
+    //     // }
+    // })
 
-
-    //return await Product.deleteMany()
+    // return await Product.deleteMany()
     // save image
     // return console.log(JSON.parse(req.body.seller))
+    proceed()
     async function proceed (){
         const files = req.files;
 
@@ -217,6 +218,7 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
                 data: resp
             })
         }, err=>{
+            console.log(err)
             res.status(400).json({
                 data: {
                     message: "Error in adding Product, try again later"
@@ -224,6 +226,8 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
             })
         })
         .catch(err=>{
+            console.log(err)
+
             res.status(400).json({
                 data: {
                     message: "Error in adding product, try again later"
@@ -236,7 +240,9 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
 
 
 miscServer.get('/myproducts', async(req, res)=>{
-    let userProducts = await Product.find({seller: req.headers.userid})
+    // {sellerId: req.headers.userid}
+    let userProducts = await Product.find({sellerId: req.headers.userid})
+    // console.log(userProducts)
     if(userProducts.length < 1) return res.status(404).json({
         message: "You Haven't added any products",
     })
@@ -401,6 +407,7 @@ miscServer.post('/rate', async(req, res)=>{
     async function rateQuery(){
         await Reviews.findOneAndUpdate({product: req.body.product}, {$push: rate})
         .then(resp=>{
+            console.log(resp)
             res.status(200).json({
                 message: "Thank You for your response"
             })
