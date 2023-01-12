@@ -80,10 +80,6 @@ const productSchema = new mongoose.Schema({
     rating: {
         type: []
     },
-    paidFor: {
-        type: Boolean,
-        default: false
-    },
     location: String, // phase out
     city: String,
     country: String,
@@ -108,6 +104,10 @@ const productSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         default: new Date()
+    },
+    inactive: {
+        type: Boolean,
+        default: false
     }
 
 }, {

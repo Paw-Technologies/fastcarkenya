@@ -17,12 +17,15 @@ const newEvent = new mongoose.Schema({
     location: {
         type: String
     },
-    date: {
-        type: String
+    expiresAt: {
+        type: Date
     },
     description: {
         type: String
     }
 })
+
+newEvent.index({ "expiresAt": 1 }, {expireAfterSeconds: 3600})
+
 
 module.exports = mongoose.model('Events', newEvent)

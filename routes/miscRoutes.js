@@ -41,7 +41,7 @@ miscServer.post('/addevent', upload.single('image'), async(req, res)=>{
         title: title,
         postedBy: req.headers.userid,
         location: location,
-        date: date,
+        expiresAt: new Date(date),
         description: description
     })
     await newEvent.save()
