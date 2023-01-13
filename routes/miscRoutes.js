@@ -76,17 +76,19 @@ miscServer.get('/getmyevents', async(req, res)=>{
     })
 })
   
-miscServer.post('/editaccount', async(req, res, next)=>{
-        let { name, phoneNumber, email, password, passwordConfirm } = req.body
+miscServer.post('/editaccount', upload.single('image'), async(req, res, next)=>{
+    let file = req.file;
+    return console.log(req.files)
+    let { name, phoneNumber, email, password, passwordConfirm } = req.body
         // let findUser = await User.findById(req.headers.userid)
 
-        User.findOneAndUpdate({_id: req.headers.userid}, {$set: {
-            name: name,
-            phoneNumber: phoneNumber,
-            email: email,
-            password: password,
-            passwordConfirm: passwordConfirm
-        }}, (err, doc)=>{
+    User.findOneAndUpdate({_id: req.headers.userid}, {$set: {
+        name: name,
+        phoneNumber: phoneNumber,
+        email: email,
+        password: password,
+        passwordConfirm: passwordConfirm
+    }}, (err, doc)=>{
             if(err){
                 res.status(304).json({
                     message: err.message
@@ -154,43 +156,43 @@ miscServer.post("/postproduct", upload.array("images"), async (req, res) => {
     })
 
     // user found check balance with product category
-    await getCategoryPricing(req.body.category, user)
-    .then(resp=>{
-        if(!resp.p){
-            collection
-            .charge({
-                first_name: `${userObj.name}`,
-                last_name: `${userObj.name}`,
-                email: userObj.email,
-                host: "https://fastcar.onrender.com",
-                amount: 10, //resp.v,
-                currency: 'KES',
-                phone_number: userObj.phoneNumber,
-                api_ref: `${userObj.userId}${resp.c}`,
-                userid: userObj.userId
-            }).then(response=>{
-                saveInvoice(userObj.userId, response.id, resp.c)
-                .then(()=> {
-                    res.status(200).json({
-                        needPay: true,
-                        url: response.url
-                    })
-                }
-                )
-            }).catch(err=>{
-                console.log('this err', err.toString())
-                return
-            })
-            return
-        }else{
-            proceed()
-        }
-    })
-
+    // await getCategoryPricing(req.body.category, user)
+    // .then(resp=>{
+    //     if(!resp.p){
+    //         collection
+    //         .charge({
+    //             first_name: `${userObj.name}`,
+    //             last_name: `${userObj.name}`,
+    //             email: userObj.email,
+    //             host: "https://fastcar.onrender.com",
+    //             amount: 10, //resp.v,
+    //             currency: 'KES',
+    //             phone_number: userObj.phoneNumber,
+    //             api_ref: `${userObj.userId}${resp.c}`,
+    //             userid: userObj.userId
+    //         }).then(response=>{
+    //             saveInvoice(userObj.userId, response.id, resp.c)
+    //             .then(()=> {
+    //                 res.status(200).json({
+    //                     needPay: true,
+    //                     url: response.url
+    //                 })
+    //             }
+    //             )
+    //         }).catch(err=>{
+    //             console.log('this err', err.toString())
+    //             return
+    //         })
+    //         return
+    //     }else{
+    //         proceed()
+    //     }
+    // })
+    
+    proceed()
     // return await Product.deleteMany()
     // save image
     // return console.log(JSON.parse(req.body.seller))
-    // proceed()
     async function proceed (){
         const files = req.files;
 
